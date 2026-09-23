@@ -1,0 +1,1336 @@
+<title>Центр поддержки семьи 2.0</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Onest:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#EDF1F0; --surface:#FFFFFF; --surface-2:#F5F8F7; --line:#D5DDDB; --line-2:#E6ECEA;
+  --ink:#14211F; --muted:#566865; --faint:#8A9A97;
+  --accent:#0B6B66; --accent-hover:#08564F; --accent-ink:#FFFFFF; --accent-soft:#DDEFEC;
+  --side:#0F2B29; --side-ink:#D3E5E2; --side-muted:#86A6A1; --side-active:#1C4845; --side-line:#1E3F3C;
+  --ok:#2A7545; --ok-soft:#E1F1E6; --warn:#9A5F0B; --warn-soft:#FBEFD9; --bad:#AF372B; --bad-soft:#F9E3DF;
+  --info:#39598A; --info-soft:#E4EBF6; --violet:#654A97; --violet-soft:#EEE8F7;
+  --shadow:0 1px 2px rgba(16,40,38,.06),0 10px 30px rgba(16,40,38,.10);
+  --r:10px;
+  --f-ui:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --f-head:"Onest","Golos Text",system-ui,"Segoe UI",Arial,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0E1615; --surface:#15201E; --surface-2:#1A2725; --line:#2B3B39; --line-2:#22312F;
+    --ink:#E3EDEB; --muted:#9AADA9; --faint:#6F827E;
+    --accent:#3DB3A9; --accent-hover:#5CC6BC; --accent-ink:#04201D; --accent-soft:#143A37;
+    --side:#0A1312; --side-ink:#D3E5E2; --side-muted:#7C9A95; --side-active:#173633; --side-line:#1A2B29;
+    --ok:#5CC082; --ok-soft:#173422; --warn:#E3A84C; --warn-soft:#3A2A10; --bad:#EE7D70; --bad-soft:#3D1C18;
+    --info:#86A7DD; --info-soft:#1C2A40; --violet:#B39BE3; --violet-soft:#2A2140;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0E1615; --surface:#15201E; --surface-2:#1A2725; --line:#2B3B39; --line-2:#22312F;
+  --ink:#E3EDEB; --muted:#9AADA9; --faint:#6F827E;
+  --accent:#3DB3A9; --accent-hover:#5CC6BC; --accent-ink:#04201D; --accent-soft:#143A37;
+  --side:#0A1312; --side-ink:#D3E5E2; --side-muted:#7C9A95; --side-active:#173633; --side-line:#1A2B29;
+  --ok:#5CC082; --ok-soft:#173422; --warn:#E3A84C; --warn-soft:#3A2A10; --bad:#EE7D70; --bad-soft:#3D1C18;
+  --info:#86A7DD; --info-soft:#1C2A40; --violet:#B39BE3; --violet-soft:#2A2140;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 var(--f-ui);-webkit-font-smoothing:antialiased}
+table{font-size:inherit;border-collapse:collapse}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3,h4{font-family:var(--f-head);margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:24px;font-weight:700}
+h2{font-size:18px;font-weight:600}
+h3{font-size:15px;font-weight:600}
+p{margin:0}
+.mono{font-family:var(--f-mono);font-size:.92em;font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.faint{color:var(--faint)}
+.small{font-size:12.5px}
+svg.i{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* app shell */
+.app{display:grid;grid-template-columns:248px minmax(0,1fr);min-height:100%}
+.side{background:var(--side);color:var(--side-ink);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;padding:20px 14px}
+.brand{display:flex;gap:10px;align-items:center;padding:0 8px 18px;border-bottom:1px solid var(--side-line)}
+.logo{width:36px;height:36px;border-radius:9px;background:linear-gradient(145deg,#2BA89E,#0B6B66);display:grid;place-items:center;font:700 13px var(--f-head);color:#fff;letter-spacing:.02em}
+.brand b{font:600 15px var(--f-head);display:block;color:#fff}
+.brand span{font-size:12px;color:var(--side-muted)}
+.nav{display:flex;flex-direction:column;gap:2px;margin-top:16px}
+.nav-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--side-muted);padding:14px 10px 6px}
+.nav button{display:flex;align-items:center;gap:10px;background:none;border:0;color:var(--side-ink);padding:9px 10px;border-radius:8px;cursor:pointer;text-align:left;width:100%}
+.nav button:hover{background:var(--side-active)}
+.nav button.on{background:var(--side-active);color:#fff;font-weight:500}
+.nav button .cnt{margin-left:auto;font-size:11.5px;background:rgba(255,255,255,.1);padding:1px 7px;border-radius:10px}
+.side-foot{margin-top:auto;border-top:1px solid var(--side-line);padding-top:14px;display:flex;flex-direction:column;gap:10px}
+.side-foot p{font-size:12px;color:var(--side-muted);padding:0 8px;line-height:1.45}
+.side-foot button{background:none;border:1px solid var(--side-line);color:var(--side-ink);border-radius:8px;padding:7px 10px;cursor:pointer;display:flex;gap:8px;align-items:center;justify-content:center}
+.side-foot button:hover{background:var(--side-active)}
+
+.main{min-width:0;display:flex;flex-direction:column}
+.top{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line-2);display:flex;align-items:center;gap:16px;padding:10px 28px;flex-wrap:wrap}
+.crumbs{font-size:13px;color:var(--muted);display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.crumbs b{color:var(--ink);font-weight:500}
+.top .sp{flex:1}
+.proto{font-size:11.5px;background:var(--warn-soft);color:var(--warn);padding:3px 9px;border-radius:20px;font-weight:500;letter-spacing:.01em}
+.seg{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:3px;gap:2px}
+.seg button{border:0;background:none;padding:5px 11px;border-radius:6px;cursor:pointer;color:var(--muted);font-size:13px}
+.seg button.on{background:var(--accent);color:var(--accent-ink)}
+.me{display:flex;align-items:center;gap:9px}
+.ava{width:32px;height:32px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font:600 12px var(--f-head);flex:none}
+.me b{display:block;font-weight:500;font-size:13px;line-height:1.2}
+.me span{font-size:11.5px;color:var(--muted)}
+.view{padding:24px 28px 60px;max-width:1360px;width:100%}
+
+/* generic */
+.page-head{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.page-head .sp{flex:1}
+.page-head p{color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 14px;border-radius:8px;cursor:pointer;font-weight:500;white-space:nowrap;line-height:1.3}
+.btn:hover{border-color:var(--faint)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+.btn.danger{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 35%,var(--line))}
+.btn.danger:hover{background:var(--bad-soft)}
+.btn.danger-solid{background:var(--bad);border-color:var(--bad);color:#fff}
+.btn.ghost{border-color:transparent;background:none;color:var(--accent)}
+.btn.ghost:hover{background:var(--accent-soft)}
+.btn.sm{padding:5px 10px;font-size:13px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.icon-btn{border:0;background:none;cursor:pointer;color:var(--muted);padding:6px;border-radius:6px;display:grid;place-items:center}
+.icon-btn:hover{background:var(--surface-2);color:var(--ink)}
+
+.card{background:var(--surface);border:1px solid var(--line-2);border-radius:var(--r)}
+.card-h{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line-2);flex-wrap:wrap}
+.card-h .sp{flex:1}
+.card-b{padding:16px 18px}
+
+.pill{display:inline-flex;align-items:center;gap:6px;padding:2px 10px 2px 8px;border-radius:20px;font-size:12.5px;font-weight:500;white-space:nowrap;line-height:1.6}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.p-new{background:var(--info-soft);color:var(--info)}
+.p-assigned{background:var(--violet-soft);color:var(--violet)}
+.p-active{background:var(--accent-soft);color:var(--accent)}
+.p-done{background:var(--ok-soft);color:var(--ok)}
+.p-refused{background:var(--bad-soft);color:var(--bad)}
+.p-m-assigned{background:var(--warn-soft);color:var(--warn)}
+.p-m-done{background:var(--ok-soft);color:var(--ok)}
+.p-m-cancelled{background:var(--surface-2);color:var(--faint);border:1px solid var(--line-2)}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:5px;background:var(--surface-2);border:1px solid var(--line-2);color:var(--muted);white-space:nowrap;font-weight:500;letter-spacing:.01em}
+.tag.cks{background:var(--info-soft);border-color:transparent;color:var(--info)}
+.tag.man{background:var(--warn-soft);border-color:transparent;color:var(--warn)}
+
+.alert{display:flex;gap:10px;padding:11px 14px;border-radius:8px;align-items:flex-start;line-height:1.45}
+.alert svg{margin-top:2px}
+.alert.bad{background:var(--bad-soft);color:var(--bad)}
+.alert.warn{background:var(--warn-soft);color:var(--warn)}
+.alert.ok{background:var(--ok-soft);color:var(--ok)}
+.alert.info{background:var(--info-soft);color:var(--info)}
+.alert b{font-weight:600}
+.alert .alert-t{color:var(--ink)}
+
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:20px;padding:5px 12px;cursor:pointer;font-size:13px;color:var(--muted);display:inline-flex;gap:6px;align-items:center}
+.chip:hover{border-color:var(--faint);color:var(--ink)}
+.chip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:500}
+.chip .n{font-variant-numeric:tabular-nums;opacity:.75}
+
+.tbl-wrap{overflow-x:auto}
+.tbl{width:100%;min-width:720px}
+.tbl th{text-align:left;font-weight:500;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;padding:10px 14px;border-bottom:1px solid var(--line-2);white-space:nowrap;background:var(--surface-2)}
+.tbl td{padding:12px 14px;border-bottom:1px solid var(--line-2);vertical-align:top}
+.tbl tr:last-child td{border-bottom:0}
+.tbl tr.click{cursor:pointer}
+.tbl tr.click:hover td{background:var(--surface-2)}
+.tbl .sub{font-size:12.5px;color:var(--muted);margin-top:2px}
+.tbl tr.cancelled td{color:var(--faint)}
+.tbl tr.cancelled .mname{text-decoration:line-through}
+
+.prog{display:flex;align-items:center;gap:8px;font-variant-numeric:tabular-nums}
+.bar{width:64px;height:6px;border-radius:4px;background:var(--line-2);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok);border-radius:4px}
+
+/* form */
+.form{display:grid;gap:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.field>label,.lbl{font-size:12.5px;color:var(--muted);font-weight:500;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.req::after{content:" *";color:var(--bad)}
+.inp,select.inp,textarea.inp{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 11px;min-height:38px;transition:border-color .15s}
+textarea.inp{min-height:76px;resize:vertical;line-height:1.45}
+.inp:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.inp[readonly]{background:var(--surface-2)}
+.inp.mono{font-family:var(--f-mono)}
+.hint{font-size:12px;color:var(--faint)}
+.sec-t{font:600 13px var(--f-head);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);display:flex;align-items:center;gap:8px}
+.radios{display:flex;flex-direction:column;gap:6px}
+.radios label,.checks label{display:flex;gap:9px;align-items:flex-start;padding:8px 11px;border:1px solid var(--line-2);border-radius:8px;cursor:pointer;background:var(--surface)}
+.radios label:hover,.checks label:hover{border-color:var(--line)}
+.radios input,.checks input{margin-top:3px;accent-color:var(--accent)}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.files{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.file{display:inline-flex;gap:6px;align-items:center;font-size:12.5px;background:var(--surface-2);border:1px solid var(--line-2);border-radius:6px;padding:4px 9px}
+.upl{position:relative;overflow:hidden}
+.upl input{position:absolute;inset:0;opacity:0;cursor:pointer}
+
+/* cases list */
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line-2)}
+.search{position:relative;flex:1;min-width:220px;max-width:380px}
+.search svg{position:absolute;left:11px;top:11px;color:var(--faint)}
+.search .inp{padding-left:34px}
+.flow{display:flex;align-items:stretch;gap:0;overflow-x:auto;margin-bottom:20px;border:1px solid var(--line-2);border-radius:var(--r);background:var(--surface)}
+.flow div{flex:1 0 auto;padding:10px 14px;font-size:12.5px;color:var(--muted);border-right:1px solid var(--line-2);white-space:nowrap;position:relative}
+.flow div:last-child{border-right:0}
+.flow div b{display:block;color:var(--ink);font-weight:500;font-size:13px}
+.flow div.opt b{color:var(--muted);font-style:italic;font-weight:400}
+
+/* case */
+.case-head{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-bottom:16px}
+.case-head .ttl{flex:1;min-width:260px}
+.case-head .ttl .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.case-head .meta{color:var(--muted);margin-top:6px;display:flex;gap:6px 16px;flex-wrap:wrap}
+.case-actions{display:flex;gap:8px;flex-wrap:wrap}
+.back{display:inline-flex;gap:6px;align-items:center;color:var(--muted);background:none;border:0;cursor:pointer;padding:0;margin-bottom:10px;font-size:13px}
+.back:hover{color:var(--accent)}
+.stepper{display:flex;align-items:center;gap:0;background:var(--surface);border:1px solid var(--line-2);border-radius:var(--r);padding:12px 18px;margin-bottom:16px;overflow-x:auto}
+.step{display:flex;align-items:center;gap:9px;white-space:nowrap;color:var(--faint);font-size:13px}
+.step .dot{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font:600 11px var(--f-head);background:var(--surface)}
+.step.past{color:var(--muted)}
+.step.past .dot{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.step.cur{color:var(--ink);font-weight:600}
+.step.cur .dot{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.step.cur.fin .dot{background:var(--ok);border-color:var(--ok);color:#fff;box-shadow:0 0 0 4px var(--ok-soft)}
+.step-line{flex:1;min-width:28px;height:2px;background:var(--line);margin:0 12px}
+.step-line.past{background:var(--accent)}
+.step-sep{margin-left:auto;padding-left:24px;display:flex;align-items:center;gap:10px;color:var(--faint);font-size:12.5px;white-space:nowrap}
+.case-grid{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:18px;align-items:start}
+.tabs{display:flex;gap:2px;overflow-x:auto;border-bottom:1px solid var(--line-2);padding:0 8px;scrollbar-width:thin}
+.tab{border:0;background:none;padding:12px 11px;cursor:pointer;color:var(--muted);white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-1px;display:flex;gap:6px;align-items:center;font-size:13.5px}
+.tab:hover{color:var(--ink)}
+.tab.on{color:var(--accent);border-bottom-color:var(--accent);font-weight:500}
+.tab .n{font-size:11px;background:var(--surface-2);border:1px solid var(--line-2);border-radius:10px;padding:0 6px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tab-body{padding:18px}
+.ro-banner{display:flex;gap:12px;align-items:center;background:var(--ok-soft);color:var(--ok);padding:12px 16px;border-radius:var(--r);margin-bottom:16px;flex-wrap:wrap}
+.ro-banner.refused{background:var(--bad-soft);color:var(--bad)}
+.ro-banner div{flex:1;min-width:220px}
+.ro-banner b{color:var(--ink);font-weight:600}
+.ro-banner span{color:var(--ink);opacity:.8}
+.kv{display:grid;grid-template-columns:200px minmax(0,1fr);gap:0}
+.kv dt,.kv dd{padding:9px 0;border-bottom:1px solid var(--line-2);margin:0}
+.kv dt{color:var(--muted);font-size:13px;padding-right:14px}
+.kv dd{white-space:pre-wrap}
+.kv dt:last-of-type,.kv dd:last-of-type{border-bottom:0}
+.aside{display:flex;flex-direction:column;gap:14px;position:sticky;top:72px}
+.aside .card-b{padding:14px 16px}
+.resp{display:flex;gap:11px;align-items:center}
+.resp b{display:block;font-weight:600}
+.resp span{font-size:12.5px;color:var(--muted)}
+.conds{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.conds li{display:flex;gap:9px;align-items:flex-start;font-size:13px;line-height:1.4}
+.conds .ck{width:18px;height:18px;border-radius:50%;flex:none;display:grid;place-items:center;margin-top:1px;border:1.5px solid var(--line)}
+.conds .ck svg{width:11px;height:11px;stroke-width:3}
+.conds li.y .ck{background:var(--ok);border-color:var(--ok);color:#fff}
+.conds li.n{color:var(--muted)}
+.path{list-style:none;margin:0;padding:0;position:relative}
+.path li{display:flex;gap:10px;padding:5px 0;font-size:13px;position:relative;align-items:center}
+.path li::before{content:"";position:absolute;left:5px;top:18px;bottom:-6px;width:2px;background:var(--line-2)}
+.path li:last-child::before{display:none}
+.path .d{width:12px;height:12px;border-radius:50%;border:2px solid var(--line);background:var(--surface);flex:none;position:relative;z-index:1}
+.path li.y .d{background:var(--accent);border-color:var(--accent)}
+.path li.y.fin .d{background:var(--ok);border-color:var(--ok)}
+.path li.n{color:var(--faint)}
+.path li .x{margin-left:auto;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.next{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:var(--r);background:var(--accent-soft);margin-bottom:16px;flex-wrap:wrap}
+.next div{flex:1;min-width:200px}
+.next b{display:block;color:var(--accent);font-weight:600}
+.empty{text-align:center;padding:36px 20px;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:10px}
+.empty svg{width:28px;height:28px;color:var(--faint);stroke-width:1.5}
+.empty b{color:var(--ink);font-weight:600}
+.item{border:1px solid var(--line-2);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:10px;background:var(--surface)}
+.item-h{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap}
+.item-h .sp{flex:1}
+.item-h h3{flex:1;min-width:200px}
+.list{display:flex;flex-direction:column;gap:12px}
+.meta-row{display:flex;gap:6px 18px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.meta-row span{display:inline-flex;gap:6px;align-items:center}
+.media{display:flex;gap:8px;flex-wrap:wrap}
+.ph{width:78px;height:58px;border-radius:7px;background:linear-gradient(135deg,#8FB5AE,#4E7F78 60%,#35615B);position:relative;overflow:hidden;display:grid;place-items:center;color:rgba(255,255,255,.85)}
+.ph:nth-child(2n){background:linear-gradient(135deg,#C4B69A,#8D7C5C)}
+.ph:nth-child(3n){background:linear-gradient(135deg,#9AA9C4,#5B6B8D)}
+.ph span{position:absolute;bottom:2px;left:5px;font:9.5px var(--f-mono);color:#fff;opacity:.9}
+.quote{border-left:3px solid var(--line);padding:2px 0 2px 12px;color:var(--ink)}
+.subgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px}
+.subgrid .lbl{margin-bottom:2px}
+.hist{width:100%;min-width:760px}
+.hist td{font-size:13px}
+.hist .act{font-weight:500}
+.chg{font-size:12.5px;display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap}
+.chg s{color:var(--faint)}
+.ipr-row{border:1px solid var(--line-2);border-radius:var(--r);padding:14px;display:grid;gap:12px;background:var(--surface-2)}
+.ipr-row.locked{opacity:.75}
+.ipr-row-h{display:flex;gap:10px;align-items:center}
+.ipr-row-h .sp{flex:1}
+.n-badge{width:24px;height:24px;border-radius:6px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font:600 12px var(--f-head)}
+
+/* modal */
+#modal{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:16px}
+.mback{position:absolute;inset:0;background:rgba(8,20,19,.5)}
+.modal{position:relative;background:var(--surface);border-radius:14px;box-shadow:var(--shadow);width:min(560px,100%);max-height:calc(100% - 20px);display:flex;flex-direction:column}
+.modal.wide{width:min(780px,100%)}
+.mhead{display:flex;align-items:center;gap:10px;padding:16px 20px;border-bottom:1px solid var(--line-2)}
+.mhead h2{flex:1}
+.mbody{padding:18px 20px;overflow:auto;display:flex;flex-direction:column;gap:14px}
+.mfoot{display:flex;gap:8px;justify-content:flex-end;padding:14px 20px;border-top:1px solid var(--line-2);flex-wrap:wrap}
+.mfoot .sp{flex:1}
+.member{display:flex;gap:12px;align-items:center;padding:11px 13px;border:1px solid var(--line-2);border-radius:9px;cursor:pointer;background:var(--surface);width:100%;text-align:left}
+.member:hover{border-color:var(--accent)}
+.member.on{border-color:var(--accent);background:var(--accent-soft)}
+.member .grow{flex:1}
+.q{padding:12px 14px;border:1px solid var(--line-2);border-radius:9px;display:flex;flex-direction:column;gap:8px}
+.q .qt{font-weight:500}
+.q .qtype{font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.05em}
+.yn{display:flex;gap:6px}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opts label{display:flex;gap:7px;align-items:center;padding:6px 11px;border:1px solid var(--line);border-radius:20px;cursor:pointer;font-size:13px}
+.opts label:has(input:checked){border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.opts input{accent-color:var(--accent);margin:0}
+.steps-mini{display:flex;gap:6px;font-size:12.5px;color:var(--faint);align-items:center;flex-wrap:wrap}
+.steps-mini b{color:var(--accent);font-weight:600}
+
+/* toast */
+#toasts{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;flex-direction:column;gap:8px;max-width:min(420px,calc(100% - 32px))}
+.toast{background:var(--ink);color:var(--bg);padding:11px 15px;border-radius:9px;box-shadow:var(--shadow);display:flex;gap:10px;align-items:flex-start;animation:tin .25s ease-out}
+.toast.okt{background:var(--ok);color:#fff}
+@keyframes tin{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.toast{animation:none}}
+
+/* new signal */
+.new-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}
+.phone{width:210px;margin:0 auto;border-radius:30px;border:7px solid var(--ink);background:var(--surface-2);padding:14px 11px;display:flex;flex-direction:column;gap:8px;font-size:11.5px}
+.phone .ph-top{font:600 12px var(--f-head);text-align:center;margin-bottom:2px}
+.phone .shot{height:92px;border-radius:9px;background:linear-gradient(135deg,#8FB5AE,#35615B);display:grid;place-items:center;color:#fff}
+.phone .shot svg{width:26px;height:26px}
+.phone .pf{background:var(--surface);border:1px solid var(--line-2);border-radius:7px;padding:6px 8px;display:flex;justify-content:space-between;gap:6px}
+.phone .pf b{font-weight:500}
+.phone .pbtn{background:var(--accent);color:var(--accent-ink);text-align:center;border-radius:7px;padding:7px;font-weight:600}
+.checkres{margin-top:10px}
+
+@media (max-width:1180px){
+  .case-grid,.new-grid{grid-template-columns:1fr}
+  .aside{position:static;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+}
+@media (max-width:900px){
+  .app{grid-template-columns:1fr}
+  .side{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;padding:10px 16px;gap:8px}
+  .brand{border:0;padding:0 8px 0 0}
+  .nav{flex-direction:row;margin:0;flex-wrap:wrap}
+  .nav-label{display:none}
+  .nav button{width:auto;padding:7px 10px}
+  .side-foot{margin:0 0 0 auto;border:0;padding:0;flex-direction:row}
+  .side-foot p{display:none}
+  .top{padding:10px 16px}
+  .view{padding:18px 16px 50px}
+  .grid2,.grid3,.subgrid,.checks{grid-template-columns:1fr}
+  .kv{grid-template-columns:1fr}
+  .kv dt{border-bottom:0;padding-bottom:0}
+  .me div{display:none}
+}
+</style>
+
+<div class="app">
+  <aside class="side" id="side"></aside>
+  <div class="main">
+    <header class="top" id="top"></header>
+    <main class="view" id="view"></main>
+  </div>
+</div>
+<div id="modal" hidden></div>
+<div id="toasts" aria-live="polite"></div>
+
+<script>
+/* ================= icons ================= */
+const ICONS={
+  check:'<polyline points="20 6 9 17 4 12"/>',
+  x:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',
+  plus:'<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>',
+  search:'<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>',
+  back:'<line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>',
+  alert:'<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+  lock:'<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+  pin:'<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+  camera:'<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',
+  file:'<path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/>',
+  refresh:'<polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>',
+  users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  folder:'<path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>',
+  list:'<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',
+  book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+  clip:'<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/>',
+  nav:'<polygon points="3 11 22 2 13 21 11 13 3 11"/>',
+  edit:'<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>',
+  undo:'<polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>',
+  slash:'<circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>',
+  clock:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+  signal:'<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
+  info:'<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>',
+  db:'<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>',
+};
+const ic=(n,cls='')=>`<svg class="i ${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]||''}</svg>`;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=s=>document.querySelector(s);
+const pad=n=>String(n).padStart(2,'0');
+function nowStr(){const d=new Date();return `${pad(d.getDate())}.${pad(d.getMonth()+1)}.${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`}
+function nowLocal(){const d=new Date();return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`}
+function fromLocal(v){if(!v)return '';const [d,t]=v.split('T');const [y,m,dd]=d.split('-');return `${dd}.${m}.${y}${t?' '+t:''}`}
+function fromDate(v){if(!v)return '';const [y,m,d]=v.split('-');return `${d}.${m}.${y}`}
+let UID=1000;const uid=()=>String(++UID);
+function initials(n){return n.split(' ').slice(0,2).map(x=>x[0]).join('')}
+function ageOf(dob){if(!dob)return null;const [d,m,y]=dob.split('.').map(Number);const t=new Date();let a=t.getFullYear()-y;if(t.getMonth()+1<m||(t.getMonth()+1===m&&t.getDate()<d))a--;return a}
+function plural(n,a,b,c){const m=n%10,h=n%100;if(m===1&&h!==11)return a;if(m>=2&&m<=4&&(h<10||h>=20))return b;return c}
+
+/* ================= reference data ================= */
+const CPS='ЦПС р-на Сарыарка, г. Астана';
+const USERS={
+  'Сейтказиева Д. М.':{role:'admin',org:CPS},
+  'Оспанов Е. Т.':{role:'admin',org:CPS},
+  'Лаврова И. П.':{role:'exec',org:CPS},
+  'Жумабаева А. К.':{role:'exec',org:'Центр занятости населения г. Астаны'},
+  'Ким Н. В.':{role:'exec',org:'Отдел занятости и соцпрограмм р-на Сарыарка'},
+  'Абенова С. Ж.':{role:'exec',org:'Управление образования г. Астаны'},
+  'Ахметов Р. С.':{role:'exec',org:'Городская поликлиника №4'},
+  'Нуртаева Г. Е.':{role:'exec',org:'Школа-гимназия №12'},
+};
+const ORGS=[CPS,'Центр занятости населения г. Астаны','Отдел занятости и соцпрограмм р-на Сарыарка','Управление образования г. Астаны','Городская поликлиника №4','Школа-гимназия №12','ОФ «Ана үйі»'];
+const orgOf=u=>USERS[u]?USERS[u].org:(u==='Система'?'FSM Social':'—');
+const ADMINS=Object.keys(USERS).filter(u=>USERS[u].role==='admin');
+const EXECS=Object.keys(USERS).filter(u=>USERS[u].role==='exec');
+
+const MEASURES=[
+  {code:'СП-01',name:'Оформление адресной социальной помощи (АСП)',cat:'Социальная'},
+  {code:'СП-02',name:'Единовременная материальная помощь',cat:'Социальная'},
+  {code:'СП-03',name:'Продуктовый / вещевой набор',cat:'Социальная'},
+  {code:'ЗН-01',name:'Содействие в трудоустройстве',cat:'Занятость'},
+  {code:'ЗН-02',name:'Направление на краткосрочное профобучение',cat:'Занятость'},
+  {code:'МД-01',name:'Прикрепление к поликлинике и медосмотр',cat:'Медицинская'},
+  {code:'МД-02',name:'Консультация профильного врача',cat:'Медицинская'},
+  {code:'ПС-01',name:'Психологическая консультация',cat:'Психологическая'},
+  {code:'ПС-02',name:'Семейная психологическая коррекция',cat:'Психологическая'},
+  {code:'ОБ-01',name:'Устройство ребёнка в детский сад',cat:'Образовательная'},
+  {code:'ОБ-02',name:'Обеспечение школьными принадлежностями',cat:'Образовательная'},
+  {code:'ОБ-03',name:'Запись в кружок / секцию',cat:'Образовательная'},
+  {code:'ЮР-01',name:'Юридическая консультация',cat:'Юридическая'},
+  {code:'ЮР-02',name:'Восстановление документов',cat:'Юридическая'},
+  {code:'ЖЛ-01',name:'Постановка в очередь на жильё',cat:'Жилищная'},
+];
+const TEMPLATES=[
+  {id:'T1',name:'Опрос взрослого члена семьи',ages:'18 лет и старше',q:[
+    {id:'a1',t:'Трудоустроен(а) ли в настоящее время?',type:'yesno',req:true},
+    {id:'a2',t:'Основной источник дохода',type:'single',req:true,opts:['Заработная плата','Пособия / АСП','Пенсия','Случайные заработки','Нет дохода']},
+    {id:'a3',t:'С какими трудностями сталкивается семья?',type:'multi',req:true,opts:['Финансовые','Жилищные','Здоровье','Конфликты в семье','Зависимости','Документы']},
+    {id:'a4',t:'Среднемесячный доход, тг',type:'number',req:false},
+    {id:'a5',t:'Дата последнего обращения за помощью',type:'date',req:false},
+    {id:'a6',t:'Комментарий опрашиваемого',type:'text',req:false},
+  ]},
+  {id:'T2',name:'Опрос несовершеннолетнего',ages:'7–17 лет',q:[
+    {id:'b1',t:'Посещаешь ли школу каждый день?',type:'yesno',req:true},
+    {id:'b2',t:'В каком ты классе?',type:'number',req:true},
+    {id:'b3',t:'Чувствуешь ли ты себя в безопасности дома?',type:'single',req:true,opts:['Да','Скорее да','Скорее нет','Нет']},
+    {id:'b4',t:'Чем занимаешься после школы?',type:'multi',req:false,opts:['Кружки / секции','Помогаю по дому','Подрабатываю','Гуляю','Ничем']},
+    {id:'b5',t:'Что бы ты хотел(а) изменить?',type:'text',req:false},
+  ]},
+  {id:'T3',name:'Опрос о ребёнке до 7 лет',ages:'до 7 лет, со слов законного представителя',q:[
+    {id:'c1',t:'Посещает ли ребёнок детский сад?',type:'yesno',req:true},
+    {id:'c2',t:'Прикреплён к поликлинике',type:'yesno',req:true},
+    {id:'c3',t:'Прививки по национальному календарю',type:'single',req:true,opts:['Все','Частично','Нет','Неизвестно']},
+    {id:'c4',t:'Дата последнего осмотра педиатра',type:'date',req:false},
+  ]},
+];
+const TYPE_LBL={yesno:'Да / Нет',single:'Один вариант',multi:'Несколько вариантов',text:'Текст',number:'Число',date:'Дата'};
+const tplFor=age=>age==null?'T1':age>=18?'T1':age>=7?'T2':'T3';
+const SIGNS=['Малообеспеченность','Безработица','Неполная семья','Многодетность','Инвалидность члена семьи','Пропуски занятий детьми','Жестокое обращение / насилие','Зависимости','Отсутствие жилья','Отсутствие документов'];
+const SOURCES=['Организация образования','Медицинская организация','Полиция','Акимат','Соседи / граждане','Единый контакт-центр 111','Мобильное приложение (соцработник)','Личное обращение в ЦПС'];
+const DIRECTIONS=['Социальная','Занятость','Медицинская','Психологическая','Образовательная','Юридическая','Жилищная'];
+const CANCEL_REASONS=['Потеряла актуальность','Создана ошибочно','Заменена другой мерой','Отказ получателя от конкретной меры','Другое'];
+const RETURN_REASONS=['Дополнительная мера поддержки','Новые обстоятельства','Изменение ИПР','Дополнительный выезд','Ошибочные данные','Уточнение результата сопровождения','Другое'];
+const REFUSE_REASONS=['Семья отказалась от сопровождения','Переезд за пределы региона','Проблема решена собственными силами','Другое'];
+const RELATIONS=['Супруг(а)','Сын','Дочь','Мать','Отец','Брат','Сестра','Бабушка','Дедушка','Внук / внучка','Опекаемый','Иное'];
+const ST={new:'Новый',assigned:'Назначен',active:'В сопровождении',done:'Завершен',refused:'Отказано'};
+const MST={assigned:'Назначен',done:'Выполнен',cancelled:'Отменен'};
+
+/* ================= demo cases ================= */
+function H(ts,user,action,o={}){return {ts,user,org:orgOf(user),action,old:o.old||'',nw:o.nw||'',reason:o.reason||'',comment:o.comment||''}}
+function seed(){
+  const A={
+    id:'ЦПС-2026-00147',status:'active',kind:'Сигнал',source:'Организация образования',sourceDetail:'Школа-гимназия №12 — классный руководитель',channel:'Веб',
+    created:'01.09.2026 09:14',iin:'890412450318',fio:'Нургалиева Айгерим Болатовна',dob:'12.04.1989',phone:'+7 701 234 56 78',
+    address:'г. Астана, р-н Сарыарка, ул. Жансугурова, д. 8, кв. 41',addrSrc:'ЦКС',
+    description:'Классный руководитель сообщила, что старший сын регулярно пропускает занятия, у дочери нет школьных принадлежностей. Мать одна воспитывает троих детей, после сокращения в июне не трудоустроена. Семья живёт в арендуемой квартире вместе с бабушкой.',
+    signs:['Малообеспеченность','Безработица','Неполная семья','Многодетность','Пропуски занятий детьми'],
+    needs:'Трудоустройство матери; материальная поддержка; место в детском саду для младшего сына.',risks:'Риск социального сиротства при дальнейшем ухудшении материального положения; риск отсева старшего сына из школы.',
+    housing:'Аренда, 2-комнатная квартира, 5 человек',employment:'Мать не работает с 06.2026, бабушка — пенсионер',children:'3 детей: 14, 11 и 5 лет',prevHelp:'АСП в 2024 г. (3 мес.)',comment:'',
+    responsible:'Сейтказиева Д. М.',respSince:'01.09.2026 10:02',
+    family:[
+      {id:'m1',fio:'Нургалиева Айгерим Болатовна',iin:'890412450318',dob:'12.04.1989',rel:'Получатель',src:'ЦКС'},
+      {id:'m2',fio:'Нургалиев Алихан Ерланович',iin:'120918501234',dob:'18.09.2012',rel:'Сын',src:'ЦКС'},
+      {id:'m3',fio:'Нургалиева Сабина Ерлановна',iin:'150301602345',dob:'01.03.2015',rel:'Дочь',src:'ЦКС'},
+      {id:'m4',fio:'Нургалиев Тимур Ерланович',iin:'210715503456',dob:'15.07.2021',rel:'Сын',src:'ЦКС'},
+      {id:'m5',fio:'Болатова Гульнар Сериковна',iin:'620520400987',dob:'20.05.1962',rel:'Мать',src:'ЦКС'},
+    ],
+    assessment:{at:'04.09.2026 11:00',by:'Сейтказиева Д. М.',
+      problems:'Отсутствие дохода у матери; нехватка средств на базовые нужды детей; младший сын не устроен в детский сад, что мешает матери выйти на работу; пропуски занятий старшим сыном.',
+      needs:'Семья: стабильный доход, материальная поддержка на период поиска работы.\nНургалиева А. Б.: трудоустройство.\nАлихан (14 лет): работа с психологом, контроль посещаемости.\nТимур (5 лет): место в детском саду.',
+      risks:'Высокий: ухудшение материального положения. Средний: отсев Алихана из школы.',
+      directions:['Социальная','Занятость','Психологическая','Образовательная'],
+      orgs:[CPS,'Центр занятости населения г. Астаны','Управление образования г. Астаны','Школа-гимназия №12'],
+      expected:'Мать трудоустроена, доход семьи выше черты бедности, все дети охвачены образованием, пропуски занятий прекращены.'},
+    ipr:{created:'04.09.2026 15:40',by:'Сейтказиева Д. М.',updated:'12.09.2026 16:05',items:[
+      {id:'i1',recipient:'m1',problem:'Отсутствие работы',measure:'Содействие в трудоустройстве',org:'Центр занятости населения г. Астаны',executor:'Жумабаева А. К.',expected:'Трудоустройство до 01.11.2026',comment:'',status:'done',result:'Трудоустроена продавцом-кассиром в ТОО «Smart Market», трудовой договор от 15.09.2026.',doneAt:'15.09.2026 12:30',doneBy:'Жумабаева А. К.',files:['Трудовой_договор.pdf']},
+      {id:'i2',recipient:'fam',problem:'Доход ниже черты бедности',measure:'Оформление адресной социальной помощи (АСП)',org:'Отдел занятости и соцпрограмм р-на Сарыарка',executor:'Ким Н. В.',expected:'Назначение АСП на период поиска работы',comment:'',status:'done',result:'АСП назначена с 01.09.2026 на 3 месяца, 68 400 тг/мес.',doneAt:'10.09.2026 10:15',doneBy:'Ким Н. В.',files:[]},
+      {id:'i3',recipient:'m4',problem:'Нет места в детском саду',measure:'Устройство ребёнка в детский сад',org:'Управление образования г. Астаны',executor:'Абенова С. Ж.',expected:'Направление в д/с до 30.09.2026',comment:'Приоритетная очередь (многодетная семья)',status:'assigned'},
+      {id:'i4',recipient:'m3',problem:'Нет школьных принадлежностей',measure:'Обеспечение школьными принадлежностями',org:'Школа-гимназия №12',executor:'Нуртаева Г. Е.',expected:'Набор к началу учебного года',comment:'',status:'cancelled',cancelReason:'Потеряла актуальность',cancelComment:'Обеспечена в рамках акции «Дорога в школу» 05.09.2026',cancelAt:'12.09.2026 16:05',cancelBy:'Сейтказиева Д. М.'},
+      {id:'i5',recipient:'m2',problem:'Пропуски занятий, конфликт со сверстниками',measure:'Психологическая консультация',org:CPS,executor:'Лаврова И. П.',expected:'Цикл из 4 консультаций, снижение пропусков',comment:'',status:'assigned'},
+    ]},
+    visits:[
+      {id:'v1',goal:'Первичный выезд: оценка жилищно-бытовых условий',address:'г. Астана, ул. Жансугурова, д. 8, кв. 41',plan:'03.09.2026 10:00',fact:'03.09.2026 10:40',participants:['Сейтказиева Д. М.','Лаврова И. П.'],status:'done',
+        result:'Семья проживает в 2-комнатной арендуемой квартире. Условия удовлетворительные, продуктов на 2–3 дня. Дети опрятны. Старший сын замкнут, отказывается говорить о школе.',
+        recommendation:'Включить в ИПР трудоустройство матери, АСП, устройство младшего в д/с и консультации психолога для старшего сына.',comment:'',media:['IMG_2031.jpg','IMG_2032.jpg','IMG_2034.jpg','VID_2035.mp4'],geo:'51.16942, 71.44911',
+        surveys:[
+          {id:'s1',member:'m1',tpl:'T1',status:'done',at:'03.09.2026 13:25',by:'Сейтказиева Д. М.',answers:{a1:'Нет',a2:'Случайные заработки',a3:['Финансовые','Жилищные'],a4:'45000',a5:'2024-03-10',a6:'Готова работать, но не с кем оставить младшего сына.'}},
+          {id:'s2',member:'m2',tpl:'T2',status:'done',at:'03.09.2026 13:31',by:'Лаврова И. П.',answers:{b1:'Нет',b2:'8',b3:'Скорее да',b4:['Помогаю по дому','Гуляю'],b5:'Хочу ходить на футбол.'}},
+        ]},
+      {id:'v2',goal:'Контрольный выезд: проверка исполнения ИПР',address:'г. Астана, ул. Жансугурова, д. 8, кв. 41',plan:'30.09.2026 11:00',fact:'',participants:['Сейтказиева Д. М.'],status:'assigned',result:'',recommendation:'',comment:'',media:[],geo:'',surveys:[]},
+    ],
+    monitoring:[
+      {at:'16.09.2026 17:10',by:'Сейтказиева Д. М.',change:'Мать трудоустроена с 15.09, АСП назначена. Материальное положение стабилизировалось.',eff:'Высокая',achieved:'2 из 4 активных мер выполнены.',extra:'Выезд',rec:'Провести контрольный выезд после устройства младшего сына в д/с.'},
+    ],
+    docs:[
+      {name:'Сигнал_школа_12.pdf',from:'Сигнал',at:'01.09.2026 09:12',by:'Сейтказиева Д. М.'},
+      {name:'Трудовой_договор.pdf',from:'Мера: Содействие в трудоустройстве',at:'15.09.2026 12:30',by:'Жумабаева А. К.'},
+    ],
+    history:[
+      H('01.09.2026 09:12','Сейтказиева Д. М.','Создание сигнала',{nw:'Источник: Организация образования (Школа-гимназия №12)'}),
+      H('01.09.2026 09:12','Система','Проверка ИИН',{nw:'Активных кейсов по ИИН 890412450318 не найдено'}),
+      H('01.09.2026 09:13','Система','Получение данных из ЦКС',{nw:'Состав семьи: 5 чел.'}),
+      H('01.09.2026 09:14','Сейтказиева Д. М.','Регистрация кейса',{nw:'Статус: Новый'}),
+      H('01.09.2026 10:02','Оспанов Е. Т.','Назначение ответственного',{old:'—',nw:'Сейтказиева Д. М.'}),
+      H('01.09.2026 10:02','Система','Смена статуса кейса',{old:'Новый',nw:'Назначен'}),
+      H('02.09.2026 09:30','Сейтказиева Д. М.','Создание выезда',{nw:'Первичный выезд, план 03.09.2026 10:00'}),
+      H('03.09.2026 13:20','Сейтказиева Д. М.','Выполнение выезда',{nw:'Первичный выезд → Выполнен'}),
+      H('03.09.2026 13:25','Сейтказиева Д. М.','Заполнение опроса',{nw:'Нургалиева А. Б. — Опрос взрослого члена семьи'}),
+      H('03.09.2026 13:31','Лаврова И. П.','Заполнение опроса',{nw:'Нургалиев А. Е. — Опрос несовершеннолетнего'}),
+      H('04.09.2026 11:00','Сейтказиева Д. М.','Оценка потребностей',{nw:'Заполнена'}),
+      H('04.09.2026 15:40','Сейтказиева Д. М.','Создание ИПР',{nw:'5 мер поддержки'}),
+      H('04.09.2026 15:40','Система','Смена статуса кейса',{old:'Назначен',nw:'В сопровождении'}),
+      H('10.09.2026 10:15','Ким Н. В.','Выполнение меры',{old:'Назначен',nw:'Выполнен — Оформление АСП'}),
+      H('12.09.2026 16:05','Сейтказиева Д. М.','Отмена меры',{old:'Назначен',nw:'Отменен — Обеспечение школьными принадлежностями',reason:'Потеряла актуальность',comment:'Обеспечена в рамках акции «Дорога в школу»'}),
+      H('15.09.2026 12:30','Жумабаева А. К.','Выполнение меры',{old:'Назначен',nw:'Выполнен — Содействие в трудоустройстве'}),
+      H('16.09.2026 17:10','Сейтказиева Д. М.','Мониторинг',{nw:'Запись мониторинга добавлена'}),
+      H('16.09.2026 17:15','Сейтказиева Д. М.','Создание выезда',{nw:'Контрольный выезд, план 30.09.2026 11:00'}),
+    ],
+  };
+  const base=(o)=>Object.assign({kind:'Сигнал',channel:'Веб',needs:'',risks:'',housing:'',employment:'',children:'',prevHelp:'',comment:'',signs:[],responsible:'',respSince:'',assessment:null,ipr:null,visits:[],monitoring:[],docs:[],history:[],addrSrc:'ЦКС'},o);
+  const B=base({id:'ЦПС-2026-00152',status:'new',kind:'Самообращение',source:'Личное обращение в ЦПС',sourceDetail:'Обратился лично',created:'23.09.2026 09:40',
+    iin:'780922300814',fio:'Исаев Бауыржан Маратович',dob:'22.09.1978',phone:'+7 705 118 40 22',address:'г. Астана, р-н Сарыарка, пр. Богенбай батыра, д. 62, кв. 7',
+    description:'Отец троих детей, супруга находится на длительном лечении. Просит помощи с оформлением пособий и устройством детей в секции.',signs:['Многодетность','Инвалидность члена семьи'],needs:'Консультация по пособиям',
+    family:[{id:'m1',fio:'Исаев Бауыржан Маратович',iin:'780922300814',dob:'22.09.1978',rel:'Получатель',src:'ЦКС'},{id:'m2',fio:'Исаева Алия Серикқызы',iin:'810214401235',dob:'14.02.1981',rel:'Супруг(а)',src:'ЦКС'},{id:'m3',fio:'Исаев Нурсултан Бауыржанович',iin:'100505500321',dob:'05.05.2010',rel:'Сын',src:'ЦКС'},{id:'m4',fio:'Исаева Томирис Бауыржановна',iin:'140818600654',dob:'18.08.2014',rel:'Дочь',src:'ЦКС'},{id:'m5',fio:'Исаев Ерасыл Бауыржанович',iin:'181101500987',dob:'01.11.2018',rel:'Сын',src:'Ручной ввод'}],
+    history:[H('23.09.2026 09:38','Сейтказиева Д. М.','Создание самообращения',{nw:'Личное обращение'}),H('23.09.2026 09:39','Система','Получение данных из ЦКС',{nw:'Состав семьи: 4 чел.'}),H('23.09.2026 09:40','Сейтказиева Д. М.','Изменение состава семьи',{nw:'Добавлен вручную: Исаев Е. Б. (сын)'}),H('23.09.2026 09:40','Сейтказиева Д. М.','Регистрация кейса',{nw:'Статус: Новый'})]});
+  const C=base({id:'ЦПС-2026-00150',status:'assigned',source:'Мобильное приложение (соцработник)',sourceDetail:'Участковый соцработник, обход',channel:'Мобильное приложение',created:'19.09.2026 16:22',
+    iin:'870130401567',fio:'Ким Ольга Викторовна',dob:'30.01.1987',phone:'+7 777 402 11 90',address:'г. Астана, р-н Сарыарка, ул. Сейфуллина, д. 21, кв. 3',
+    description:'При обходе выявлена семья с двумя детьми без регистрации по месту жительства. Отсутствуют документы у младшего ребёнка, мать не трудоустроена.',signs:['Отсутствие документов','Безработица','Неполная семья'],
+    mobile:{photos:['IMG_4410.jpg','IMG_4411.jpg'],geo:'51.17811, 71.42033',fixedAt:'19.09.2026 16:05'},
+    responsible:'Оспанов Е. Т.',respSince:'20.09.2026 09:10',
+    family:[{id:'m1',fio:'Ким Ольга Викторовна',iin:'870130401567',dob:'30.01.1987',rel:'Получатель',src:'ЦКС'},{id:'m2',fio:'Ким Даниил Андреевич',iin:'130611500442',dob:'11.06.2013',rel:'Сын',src:'ЦКС'},{id:'m3',fio:'Ким Ева',iin:'',dob:'02.02.2022',rel:'Дочь',src:'Ручной ввод'}],
+    docs:[{name:'IMG_4410.jpg',from:'Сигнал (мобильное приложение)',at:'19.09.2026 16:05',by:'Оспанов Е. Т.'},{name:'IMG_4411.jpg',from:'Сигнал (мобильное приложение)',at:'19.09.2026 16:05',by:'Оспанов Е. Т.'}],
+    history:[H('19.09.2026 16:05','Оспанов Е. Т.','Создание сигнала',{nw:'Мобильное приложение, фото 2, геолокация 51.17811, 71.42033'}),H('19.09.2026 16:21','Система','Получение данных из ЦКС',{nw:'Состав семьи: 2 чел.'}),H('19.09.2026 16:22','Оспанов Е. Т.','Регистрация кейса',{nw:'Статус: Новый'}),H('20.09.2026 09:10','Сейтказиева Д. М.','Назначение ответственного',{old:'—',nw:'Оспанов Е. Т.'}),H('20.09.2026 09:10','Система','Смена статуса кейса',{old:'Новый',nw:'Назначен'})]});
+  const D=base({id:'ЦПС-2026-00139',status:'active',source:'Медицинская организация',sourceDetail:'Городская поликлиника №4, участковый педиатр',created:'25.08.2026 11:05',
+    iin:'930714400228',fio:'Серикбаева Жанар Кайратовна',dob:'14.07.1993',phone:'+7 747 550 12 34',address:'г. Астана, р-н Сарыарка, ул. Кенесары, д. 40, кв. 112',
+    description:'Молодая мать с ребёнком 1 года, послеродовая депрессия, конфликт с супругом.',signs:['Жестокое обращение / насилие'],responsible:'Сейтказиева Д. М.',respSince:'25.08.2026 12:00',
+    family:[{id:'m1',fio:'Серикбаева Жанар Кайратовна',iin:'930714400228',dob:'14.07.1993',rel:'Получатель',src:'ЦКС'},{id:'m2',fio:'Серикбаев Айдос Нурланович',iin:'250603500118',dob:'03.06.2025',rel:'Сын',src:'ЦКС'}],
+    assessment:{at:'27.08.2026 10:00',by:'Сейтказиева Д. М.',problems:'Послеродовая депрессия, семейный конфликт.',needs:'Психологическая помощь, юридическая консультация.',risks:'Средний',directions:['Психологическая','Юридическая'],orgs:[CPS],expected:'Стабилизация эмоционального состояния.'},
+    ipr:{created:'27.08.2026 14:00',by:'Сейтказиева Д. М.',items:[
+      {id:'d1',recipient:'m1',problem:'Эмоциональное состояние',measure:'Семейная психологическая коррекция',org:CPS,executor:'Лаврова И. П.',expected:'6 сессий',comment:'',status:'assigned'},
+      {id:'d2',recipient:'m1',problem:'Правовая неграмотность',measure:'Юридическая консультация',org:'ОФ «Ана үйі»',executor:'',expected:'Консультация по алиментам',comment:'Исполнитель определяется организацией',status:'assigned'},
+      {id:'d3',recipient:'m2',problem:'Не прикреплён к поликлинике',measure:'Прикрепление к поликлинике и медосмотр',org:'Городская поликлиника №4',executor:'Ахметов Р. С.',expected:'Прикрепление',comment:'',status:'done',result:'Прикреплён 02.09.2026, осмотр педиатра пройден.',doneAt:'02.09.2026 15:00',doneBy:'Ахметов Р. С.',files:[]},
+    ]},
+    history:[H('25.08.2026 11:05','Сейтказиева Д. М.','Регистрация кейса',{nw:'Статус: Новый'})]});
+  const E=base({id:'ЦПС-2026-00121',status:'done',source:'Акимат',sourceDetail:'Обращение через акимат района',created:'04.08.2026 10:20',doneAt:'11.09.2026 14:02',
+    iin:'850617300451',fio:'Толегенов Асхат Нурланович',dob:'17.06.1985',phone:'+7 702 333 90 10',address:'г. Астана, р-н Сарыарка, ул. Бейбитшилик, д. 14, кв. 9',
+    description:'Потеря работы кормильцем, задолженность по коммунальным услугам.',signs:['Безработица','Малообеспеченность'],responsible:'Оспанов Е. Т.',respSince:'04.08.2026 11:00',
+    family:[{id:'m1',fio:'Толегенов Асхат Нурланович',iin:'850617300451',dob:'17.06.1985',rel:'Получатель',src:'ЦКС'},{id:'m2',fio:'Толегенова Сауле Маратовна',iin:'870909400334',dob:'09.09.1987',rel:'Супруг(а)',src:'ЦКС'}],
+    assessment:{at:'06.08.2026',by:'Оспанов Е. Т.',problems:'Безработица',needs:'Трудоустройство',risks:'Средний',directions:['Занятость'],orgs:['Центр занятости населения г. Астаны'],expected:'Трудоустройство'},
+    ipr:{created:'06.08.2026 16:00',by:'Оспанов Е. Т.',items:[{id:'e1',recipient:'m1',problem:'Безработица',measure:'Содействие в трудоустройстве',org:'Центр занятости населения г. Астаны',executor:'Жумабаева А. К.',expected:'Трудоустройство',comment:'',status:'done',result:'Трудоустроен водителем в ТОО «Астана-Транс».',doneAt:'11.09.2026 14:02',doneBy:'Жумабаева А. К.',files:[]}]},
+    history:[H('04.08.2026 10:20','Оспанов Е. Т.','Регистрация кейса',{nw:'Статус: Новый'}),H('11.09.2026 14:02','Жумабаева А. К.','Выполнение меры',{old:'Назначен',nw:'Выполнен — Содействие в трудоустройстве'}),H('11.09.2026 14:02','Система','Автоматическое завершение кейса',{old:'В сопровождении',nw:'Завершен',comment:'Все условия завершения выполнены'})]});
+  const F=base({id:'ЦПС-2026-00118',status:'refused',source:'Соседи / граждане',sourceDetail:'Звонок соседей',created:'29.07.2026 18:40',
+    iin:'910305450672',fio:'Мусина Динара Ерболовна',dob:'05.03.1991',phone:'+7 700 900 31 31',address:'г. Астана, р-н Сарыарка, ул. Иманова, д. 3, кв. 58',
+    description:'Со слов соседей — шум, конфликты, дети без присмотра.',signs:['Зависимости'],responsible:'Сейтказиева Д. М.',respSince:'30.07.2026 09:00',
+    refusal:{reason:'Семья отказалась от сопровождения',date:'05.08.2026',file:'Заявление_об_отказе.pdf',comment:'Отказ оформлен письменно при выезде.',at:'05.08.2026 17:20',by:'Сейтказиева Д. М.'},
+    family:[{id:'m1',fio:'Мусина Динара Ерболовна',iin:'910305450672',dob:'05.03.1991',rel:'Получатель',src:'ЦКС'}],
+    history:[H('29.07.2026 18:40','Сейтказиева Д. М.','Регистрация кейса',{nw:'Статус: Новый'}),H('05.08.2026 17:20','Сейтказиева Д. М.','Отказ от сопровождения',{old:'Назначен',nw:'Отказано',reason:'Семья отказалась от сопровождения',comment:'Файл: Заявление_об_отказе.pdf'})]});
+  return {cases:[B,C,A,D,E,F]};
+}
+let DB=seed();
+
+/* ================= state ================= */
+let S={role:'admin',view:'cases',caseId:null,tab:'overview',filter:'all',q:'',mfilter:'all',dictTab:'measures',nd:null,ad:null,iprDraft:null,iprErr:''};
+const me=()=>S.role==='admin'?'Сейтказиева Д. М.':'Лаврова И. П.';
+const getCase=id=>DB.cases.find(c=>c.id===id);
+const cur=()=>getCase(S.caseId);
+const isFinal=c=>c.status==='done'||c.status==='refused';
+const canEdit=c=>S.role==='admin'&&!isFinal(c);
+const memberName=(c,id)=>id==='fam'?'Семья в целом':(c.family.find(m=>m.id===id)||{}).fio||'—';
+const short=f=>{const p=f.split(' ');return p[0]+(p[1]?' '+p[1][0]+'.':'')+(p[2]?' '+p[2][0]+'.':'')};
+function log(c,action,o={}){c.history.push(H(nowStr(),o.user||me(),action,o))}
+function toast(msg,ok){const t=document.createElement('div');t.className='toast'+(ok?' okt':'');t.innerHTML=ic(ok?'check':'info')+`<div>${msg}</div>`;$('#toasts').appendChild(t);setTimeout(()=>t.remove(),4200)}
+const pill=s=>`<span class="pill p-${s}">${ST[s]}</span>`;
+const mpill=s=>`<span class="pill p-m-${s}">${MST[s]}</span>`;
+const srcTag=s=>s==='ЦКС'?'<span class="tag cks">ЦКС</span>':'<span class="tag man">Ручной ввод</span>';
+
+/* ================= auto-completion ================= */
+function conds(c){
+  const it=c.ipr?c.ipr.items:[];const done=it.filter(x=>x.status==='done');
+  const reqOk=!!(c.iin&&c.fio&&c.dob&&c.address&&c.description&&c.responsible&&c.assessment);
+  return [
+    ['В кейсе создан ИПР',!!c.ipr],
+    ['Есть хотя бы одна выполненная мера',done.length>0],
+    ['У каждой выполненной меры заполнен результат',done.length>0&&done.every(x=>(x.result||'').trim())],
+    ['Нет мер со статусом «Назначен»',!!c.ipr&&!it.some(x=>x.status==='assigned')],
+    ['Нет выездов со статусом «Назначен»',!c.visits.some(v=>v.status==='assigned')],
+    ['Обязательные данные кейса заполнены',reqOk],
+  ];
+}
+function checkAuto(c){
+  if(c.status!=='active')return false;
+  if(conds(c).every(x=>x[1])){
+    c.status='done';c.doneAt=nowStr();
+    log(c,'Автоматическое завершение кейса',{user:'Система',old:'В сопровождении',nw:'Завершен',comment:'Все условия завершения выполнены'});
+    setTimeout(()=>toast(`Кейс ${c.id} автоматически завершён. Карточка переведена в режим только для чтения.`,true),150);
+    return true;
+  }return false;
+}
+const willComplete=(c,exceptId)=>c.status==='active'&&c.ipr&&!c.ipr.items.some(x=>x.status==='assigned'&&x.id!==exceptId)&&!c.visits.some(v=>v.status==='assigned');
+
+/* ================= shell ================= */
+function renderShell(){
+  const admin=S.role==='admin';
+  const myM=allMyMeasures().filter(x=>x.m.status==='assigned').length;
+  const myV=allMyVisits().filter(x=>x.v.status==='assigned').length;
+  const nav=admin?[
+    ['cases','list','Кейсы',DB.cases.filter(c=>!isFinal(c)).length],
+    ['new','plus','Новый сигнал / самообращение'],
+    ['dicts','book','Справочники'],
+  ]:[
+    ['tasks','clip','Мои меры',myM],
+    ['visits','nav','Мои выезды',myV],
+  ];
+  const on=v=>S.view===v||(v==='cases'&&S.view==='case');
+  $('#side').innerHTML=`
+    <div class="brand"><div class="logo">FSM</div><div><b>FSM Social</b><span>Центр поддержки семьи 2.0</span></div></div>
+    <nav class="nav">
+      <div class="nav-label">${admin?'Администратор':'Исполнитель'}</div>
+      ${nav.map(n=>`<button class="${on(n[0])?'on':''}" data-action="go" data-v="${n[0]}">${ic(n[1])}<span>${n[2]}</span>${n[3]!=null?`<span class="cnt">${n[3]}</span>`:''}</button>`).join('')}
+    </nav>
+    <div class="side-foot">
+      <p>Прототип интерфейса по постановке от 22.09.2026. Данные вымышлены, изменения не сохраняются.</p>
+      <button data-action="reset">${ic('refresh')}Сбросить демо</button>
+    </div>`;
+  const crumbs={cases:['Кейсы'],new:['Кейсы','Новый сигнал / самообращение'],case:['Кейсы',S.caseId],dicts:['Справочники'],tasks:['Мои меры'],visits:['Мои выезды']}[S.view]||[];
+  $('#top').innerHTML=`
+    <div class="crumbs">${crumbs.map((c,i)=>i===crumbs.length-1?`<b>${esc(c)}</b>`:`<span>${esc(c)}</span><span>/</span>`).join('')}</div>
+    <span class="sp"></span>
+    <span class="proto">Прототип · демо-данные</span>
+    <div class="seg" role="group" aria-label="Роль">
+      <button class="${admin?'on':''}" data-action="role" data-v="admin">Администратор</button>
+      <button class="${!admin?'on':''}" data-action="role" data-v="exec">Исполнитель</button>
+    </div>
+    <div class="me"><span class="ava">${initials(me())}</span><div><b>${me()}</b><span>${admin?'Администратор':'Исполнитель'} · ${esc(orgOf(me()))}</span></div></div>`;
+}
+function render(){
+  renderShell();
+  const v=$('#view');
+  const fn={cases:vCases,new:vNew,case:vCase,dicts:vDicts,tasks:vTasks,visits:vMyVisits}[S.view];
+  v.innerHTML=fn?fn():'';
+}
+
+/* ================= cases list ================= */
+function vCases(){
+  const counts={all:DB.cases.length};Object.keys(ST).forEach(k=>counts[k]=DB.cases.filter(c=>c.status===k).length);
+  return `
+  <div class="page-head"><div><h1>Кейсы ЦПС</h1><p>${CPS} · отображаются кейсы своего ЦПС</p></div><span class="sp"></span>
+    <button class="btn primary" data-action="go" data-v="new">${ic('plus')}Новый сигнал / самообращение</button></div>
+  <div class="flow" aria-label="Процесс сопровождения">
+    <div><span>1</span><b>Сигнал / самообращение</b></div><div><span>2</span><b>Проверка ИИН и ЦКС</b></div><div><span>3</span><b>Назначение ответственного</b></div>
+    <div><span>4</span><b>Оценка потребностей</b></div><div><span>5</span><b>ИПР</b></div><div><span>6</span><b>Меры поддержки</b></div>
+    <div class="opt"><span>7</span><b>Выезды и опросы</b></div><div><span>8</span><b>Мониторинг</b></div><div><span>9</span><b>Автозавершение</b></div>
+  </div>
+  <div class="card">
+    <div class="toolbar">
+      <div class="search">${ic('search')}<input class="inp" id="q" placeholder="ФИО, ИИН или номер кейса" value="${esc(S.q)}" autocomplete="off"></div>
+      <div class="chips">${['all','new','assigned','active','done','refused'].map(k=>`<button class="chip ${S.filter===k?'on':''}" data-action="filter" data-v="${k}">${k==='all'?'Все':ST[k]} <span class="n">${counts[k]}</span></button>`).join('')}</div>
+    </div>
+    <div class="tbl-wrap" id="cases-wrap">${casesTable()}</div>
+  </div>`;
+}
+function casesTable(){
+  const q=S.q.trim().toLowerCase();
+  const list=DB.cases.filter(c=>(S.filter==='all'||c.status===S.filter)&&(!q||(c.fio+' '+c.iin+' '+c.id).toLowerCase().includes(q)));
+  if(!list.length)return `<div class="empty">${ic('search')}<b>Кейсы не найдены</b><span>Измените фильтр или строку поиска</span></div>`;
+  return `<table class="tbl"><thead><tr><th>№ кейса</th><th>Получатель</th><th>Основание</th><th>Ответственный</th><th>Статус</th><th>Меры</th><th>Зарегистрирован</th></tr></thead><tbody>
+  ${list.map(c=>{const it=c.ipr?c.ipr.items.filter(x=>x.status!=='cancelled'):[];const d=it.filter(x=>x.status==='done').length;
+    return `<tr class="click" data-action="open" data-id="${c.id}" tabindex="0">
+      <td class="mono">${c.id}</td>
+      <td><div>${esc(c.fio)}</div><div class="sub mono">ИИН ${c.iin}</div></td>
+      <td><div>${c.kind}</div><div class="sub">${esc(c.source)}</div></td>
+      <td>${c.responsible?esc(c.responsible):'<span class="pill p-m-assigned">Не назначен</span>'}</td>
+      <td>${pill(c.status)}</td>
+      <td>${c.ipr?`<div class="prog"><div class="bar"><i style="width:${it.length?d/it.length*100:0}%"></i></div>${d}/${it.length}</div>`:'<span class="faint">ИПР нет</span>'}</td>
+      <td class="mono">${c.created}</td></tr>`}).join('')}
+  </tbody></table>`;
+}
+
+/* ================= new signal ================= */
+function emptyNd(){return {iin:'',check:null,fio:'',dob:'',phone:'',address:'',kind:'Сигнал',source:'',sourceDetail:'',description:'',signs:[],needs:'',risks:'',housing:'',employment:'',children:'',prevHelp:'',comment:'',files:[],family:[],src:{},err:''}}
+function vNew(){
+  if(!S.nd)S.nd=emptyNd();const d=S.nd;const ck=d.check;
+  const f=(k,l,o={})=>`<div class="field"><label for="nd-${k}" class="${o.req?'req':''}">${l}${d.src[k]?' '+srcTag(d.src[k]):''}</label>${o.ta?`<textarea class="inp" id="nd-${k}" data-bind="nd.${k}" placeholder="${o.ph||''}">${esc(d[k])}</textarea>`:`<input class="inp ${o.mono?'mono':''}" id="nd-${k}" data-bind="nd.${k}" value="${esc(d[k])}" placeholder="${o.ph||''}">`}</div>`;
+  let chk='';
+  if(ck){
+    if(ck.state==='loading')chk=`<div class="alert info checkres">${ic('clock')}<div>Проверка активных кейсов и запрос в ЦКС…</div></div>`;
+    else if(ck.state==='blocked')chk=`<div class="alert bad checkres">${ic('lock')}<div><b>Создание кейса заблокировано.</b> <span class="alert-t">По ИИН ${d.iin} уже есть активный кейс <b class="mono">${ck.caseId}</b> (${ST[getCase(ck.caseId).status]}). Второй активный кейс создать нельзя.</span><div style="margin-top:8px"><button class="btn sm" data-action="open" data-id="${ck.caseId}">Перейти к кейсу ${ck.caseId}</button></div></div></div>`;
+    else chk=`<div class="alert ok checkres">${ic('check')}<div><b>Активных кейсов нет.</b> <span class="alert-t">${ck.prev?`Предыдущий кейс <span class="mono">${ck.prev}</span> имеет статус «${ST[getCase(ck.prev).status]}» — создание нового кейса допускается. `:''}Данные из ЦКС получены: ФИО, дата рождения, адрес, состав семьи (${d.family.length} чел.).</span></div></div>`;
+  }
+  const blocked=ck&&ck.state==='blocked';const ready=ck&&ck.state==='ok';
+  return `
+  <div class="page-head"><div><h1>Новый сигнал / самообращение</h1><p>Первичная информация фиксируется сразу при регистрации — отдельного этапа уточнения нет</p></div></div>
+  ${d.err?`<div class="alert bad" style="margin-bottom:14px">${ic('alert')}<div>${d.err}</div></div>`:''}
+  <div class="new-grid"><div class="form">
+    <div class="card"><div class="card-h"><span class="sec-t">${ic('db')}Проверка ИИН, дублей и ЦКС</span></div><div class="card-b">
+      <div class="grid2" style="align-items:end">
+        <div class="field"><label for="nd-iin" class="req">ИИН получателя / заявителя</label><input class="inp mono" id="nd-iin" data-bind="nd.iin" inputmode="numeric" maxlength="12" value="${esc(d.iin)}" placeholder="12 цифр"></div>
+        <div><button class="btn" data-action="checkIin" ${d.iin.length!==12?'disabled':''}>${ic('search')}Проверить и запросить ЦКС</button></div>
+      </div>
+      ${chk}
+      <p class="hint" style="margin-top:10px">Примеры для демонстрации:
+        <button class="btn ghost sm" data-action="demoIin" data-v="890412450318">890412450318 — есть активный кейс</button>
+        <button class="btn ghost sm" data-action="demoIin" data-v="910305450672">910305450672 — прошлый кейс «Отказано»</button>
+        <button class="btn ghost sm" data-action="demoIin" data-v="950823401122">950823401122 — новый гражданин</button></p>
+    </div></div>
+    <fieldset ${blocked||!ready?'disabled':''} style="border:0;padding:0;margin:0;display:grid;gap:14px;${blocked||!ready?'opacity:.55':''}">
+    <div class="card"><div class="card-h"><span class="sec-t">${ic('users')}Получатель</span></div><div class="card-b form">
+      <div class="grid2">${f('fio','Ф.И.О.',{req:1})}${f('dob','Дата рождения',{req:1,mono:1,ph:'дд.мм.гггг'})}</div>
+      <div class="grid2">${f('phone','Контактный телефон',{ph:'+7 ___ ___ __ __'})}${f('address','Адрес проживания',{req:1})}</div>
+    </div></div>
+    <div class="card"><div class="card-h"><span class="sec-t">${ic('signal')}Основание и ситуация</span></div><div class="card-b form">
+      <div class="grid2">
+        <div class="field"><span class="lbl req">Тип обращения</span><div class="seg">${['Сигнал','Самообращение'].map(k=>`<button type="button" class="${d.kind===k?'on':''}" data-action="ndKind" data-v="${k}">${k}</button>`).join('')}</div></div>
+        <div class="field"><label for="nd-source" class="req">Источник обращения</label><select class="inp" id="nd-source" data-bind="nd.source"><option value="">— выберите —</option>${SOURCES.map(s=>`<option ${d.source===s?'selected':''}>${s}</option>`).join('')}</select></div>
+      </div>
+      ${f('sourceDetail','Уточнение источника',{ph:'Например: Школа-гимназия №12, классный руководитель'})}
+      ${f('description','Описание ситуации',{req:1,ta:1})}
+      <div class="field"><span class="lbl">Выявленные признаки и причины ТЖС</span><div class="chips">${SIGNS.map(s=>`<button type="button" class="chip ${d.signs.includes(s)?'on':''}" data-action="ndSign" data-v="${s}">${s}</button>`).join('')}</div></div>
+      <div class="grid2">${f('needs','Первично выявленные потребности',{ta:1})}${f('risks','Первично выявленные риски',{ta:1})}</div>
+      <div class="grid2">${f('housing','Жилищные условия',{ph:'при наличии'})}${f('employment','Занятость',{ph:'при наличии'})}</div>
+      <div class="grid2">${f('children','Сведения о детях',{ph:'при наличии'})}${f('prevHelp','Ранее оказанная помощь',{ph:'при наличии'})}</div>
+      ${f('comment','Комментарий',{ta:1})}
+      <div class="field"><span class="lbl">Вложения <span class="hint">— в веб-версии фото не обязательно</span></span>
+        <div class="files">${d.files.map(n=>`<span class="file">${ic('file')}${esc(n)}</span>`).join('')}<label class="btn sm upl">${ic('plus')}Прикрепить файл<input type="file" multiple data-files="nd"></label></div></div>
+    </div></div>
+    <div class="card"><div class="card-h"><span class="sec-t">${ic('users')}Состав семьи</span><span class="sp"></span><button type="button" class="btn sm" data-action="ndAddMember">${ic('plus')}Добавить вручную</button></div>
+      <div class="tbl-wrap">${d.family.length?`<table class="tbl"><thead><tr><th>Ф.И.О.</th><th>ИИН</th><th>Дата рождения</th><th>Родственная связь</th><th>Источник</th></tr></thead><tbody>${d.family.map(m=>`<tr><td>${esc(m.fio)}</td><td class="mono">${m.iin||'—'}</td><td class="mono">${m.dob}</td><td>${m.rel}</td><td>${srcTag(m.src)}</td></tr>`).join('')}</tbody></table>`:`<div class="empty">${ic('users')}<span>Состав семьи загрузится из ЦКС после проверки ИИН</span></div>`}</div>
+    </div>
+    </fieldset>
+    <div style="display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap">
+      <button class="btn" data-action="go" data-v="cases">Отмена</button>
+      <button class="btn primary" data-action="ndSubmit" ${!ready?'disabled':''}>${ic('check')}Зарегистрировать кейс</button>
+    </div>
+  </div>
+  <aside class="card"><div class="card-h"><span class="sec-t">${ic('camera')}Мобильное приложение</span></div><div class="card-b" style="display:grid;gap:12px">
+    <div class="phone" aria-hidden="true">
+      <div class="ph-top">Новый сигнал</div>
+      <div class="shot">${ic('camera')}</div>
+      <div class="pf"><span>Фото с камеры *</span><b>2</b></div>
+      <div class="pf"><span>Геолокация *</span><b class="mono">51.178, 71.420</b></div>
+      <div class="pf"><span>Дата/время *</span><b class="mono">авто</b></div>
+      <div class="pbtn">Отправить сигнал</div>
+    </div>
+    <p class="small muted">При регистрации сигнала в мобильном приложении обязательны <b>минимум одна фотография с камеры</b>, <b>геолокация</b> и <b>дата/время фиксации</b>. В веб-версии фотография не обязательна.</p>
+  </div></aside></div>`;
+}
+const CKS_FAKE={
+  '950823401122':{fio:'Ахметова Мадина Ринатовна',dob:'23.08.1995',address:'г. Астана, р-н Сарыарка, ул. Шокана Валиханова, д. 17, кв. 25',family:[
+    {fio:'Ахметова Мадина Ринатовна',iin:'950823401122',dob:'23.08.1995',rel:'Получатель'},{fio:'Ахметов Ерлан Муратович',iin:'930211300876',dob:'11.02.1993',rel:'Супруг(а)'},
+    {fio:'Ахметова Амина Ерлановна',iin:'190404600231',dob:'04.04.2019',rel:'Дочь'},{fio:'Ахметов Арсен Ерланович',iin:'230912500417',dob:'12.09.2023',rel:'Сын'}]},
+};
+function dobFromIin(i){const cent={'1':18,'2':18,'3':19,'4':19,'5':20,'6':20}[i[6]]||19;return `${i.slice(4,6)}.${i.slice(2,4)}.${cent}${i.slice(0,2)}`}
+function runCheck(){
+  const d=S.nd;if(!/^\d{12}$/.test(d.iin)){d.err='ИИН должен состоять из 12 цифр.';render();return}
+  d.err='';d.check={state:'loading'};render();
+  setTimeout(()=>{
+    const same=DB.cases.filter(c=>c.iin===d.iin);
+    const active=same.find(c=>!isFinal(c));
+    if(active){d.check={state:'blocked',caseId:active.id};render();return}
+    const prev=same[0];
+    let data=CKS_FAKE[d.iin];
+    if(!data&&prev)data={fio:prev.fio,dob:prev.dob,address:prev.address,family:prev.family.map(m=>({...m}))};
+    if(!data)data={fio:'Сагындыкова Айнур Талгатовна',dob:dobFromIin(d.iin),address:'г. Астана, р-н Сарыарка, ул. Абая, д. 5, кв. 12',family:[{fio:'Сагындыкова Айнур Талгатовна',iin:d.iin,dob:dobFromIin(d.iin),rel:'Получатель'},{fio:'Сагындыков Алмас Нурланович',iin:'160722500193',dob:'22.07.2016',rel:'Сын'}]};
+    Object.assign(d,{fio:data.fio,dob:data.dob,address:data.address,family:data.family.map((m,i)=>({...m,id:'m'+(i+1),src:m.src||'ЦКС'})),src:{fio:'ЦКС',dob:'ЦКС',address:'ЦКС'}});
+    d.check={state:'ok',prev:prev&&prev.id};render();
+  },650);
+}
+function submitNew(){
+  const d=S.nd;const miss=[];
+  if(!d.fio.trim())miss.push('Ф.И.О.');if(!d.dob.trim())miss.push('дата рождения');if(!d.address.trim())miss.push('адрес');if(!d.source)miss.push('источник обращения');if(!d.description.trim())miss.push('описание ситуации');
+  if(miss.length){d.err='Заполните обязательные поля: '+miss.join(', ')+'.';render();window.scrollTo({top:0});return}
+  const n=Math.max(...DB.cases.map(c=>+c.id.slice(-5)))+1;const id='ЦПС-2026-'+String(n).padStart(5,'0');const t=nowStr();
+  const c={id,status:'new',kind:d.kind,source:d.source,sourceDetail:d.sourceDetail,channel:'Веб',created:t,iin:d.iin,fio:d.fio,dob:d.dob,phone:d.phone,address:d.address,addrSrc:d.src.address||'Ручной ввод',
+    description:d.description,signs:[...d.signs],needs:d.needs,risks:d.risks,housing:d.housing,employment:d.employment,children:d.children,prevHelp:d.prevHelp,comment:d.comment,
+    responsible:'',respSince:'',family:d.family,assessment:null,ipr:null,visits:[],monitoring:[],docs:d.files.map(n=>({name:n,from:d.kind,at:t,by:me()})),history:[]};
+  log(c,'Создание '+(d.kind==='Сигнал'?'сигнала':'самообращения'),{nw:'Источник: '+d.source+(d.sourceDetail?' ('+d.sourceDetail+')':'')});
+  log(c,'Проверка ИИН',{user:'Система',nw:`Активных кейсов по ИИН ${d.iin} не найдено`});
+  log(c,'Получение данных из ЦКС',{user:'Система',nw:`Состав семьи: ${d.family.filter(m=>m.src==='ЦКС').length} чел.`});
+  d.family.filter(m=>m.src!=='ЦКС').forEach(m=>log(c,'Изменение состава семьи',{nw:'Добавлен вручную: '+m.fio}));
+  log(c,'Регистрация кейса',{nw:'Статус: Новый'});
+  DB.cases.unshift(c);S.nd=null;S.caseId=id;S.tab='overview';S.view='case';render();window.scrollTo({top:0});
+  toast(`Кейс ${id} зарегистрирован. Назначьте ответственного.`,true);
+}
+
+/* ================= case card ================= */
+function vCase(){
+  const c=cur();if(!c)return '';
+  const it=c.ipr?c.ipr.items:[];const act=it.filter(x=>x.status==='assigned').length;
+  const surveys=c.visits.flatMap(v=>v.surveys);
+  const tabs=[['overview','Общая информация'],['signal','Сигнал'],['family','Состав семьи',c.family.length],['assessment','Оценка потребностей'],['ipr','ИПР',c.ipr?it.length:null],['measures','Меры поддержки',act||null],['visits','Выезды',c.visits.length||null],['surveys','Опросы',surveys.length||null],['monitoring','Мониторинг',c.monitoring.length||null],['docs','Документы',c.docs.length||null],['history','История',c.history.length]];
+  const admin=S.role==='admin';
+  const actions=!admin?'':c.status==='done'?`<button class="btn primary" data-action="returnCase">${ic('undo')}Вернуть в работу</button>`:
+    c.status==='refused'?'':`${c.status==='new'?`<button class="btn primary" data-action="assign">${ic('users')}Назначить ответственного</button>`:`<button class="btn" data-action="assign">${ic('users')}Переназначить</button>`}<button class="btn danger" data-action="refuse">${ic('slash')}Отказ от сопровождения</button>`;
+  const order=['new','assigned','active','done'];const idx=order.indexOf(c.status);
+  const stepper=`<div class="stepper">${order.map((s,i)=>`${i?`<span class="step-line ${idx>=i&&c.status!=='refused'?'past':''}"></span>`:''}<span class="step ${c.status==='refused'?'':i<idx?'past':i===idx?'cur'+(s==='done'?' fin':''):''}"><span class="dot">${i<idx||(s==='done'&&idx===3)?ic('check'):i+1}</span>${ST[s]}</span>`).join('')}
+    <span class="step-sep">отдельный конечный статус ${c.status==='refused'?pill('refused'):'<span class="pill p-m-cancelled">Отказано</span>'}</span></div>`;
+  let banner='';
+  if(c.status==='done')banner=`<div class="ro-banner">${ic('lock')}<div><b>Кейс завершён автоматически ${c.doneAt||''}.</b> <span>Карточка доступна только для чтения. Для изменений администратор может вернуть кейс в работу.</span></div>${admin?`<button class="btn" data-action="returnCase">${ic('undo')}Вернуть в работу</button>`:''}</div>`;
+  if(c.status==='refused')banner=`<div class="ro-banner refused">${ic('slash')}<div><b>Оформлен отказ от сопровождения ${c.refusal?c.refusal.date:''}.</b> <span>${c.refusal?esc(c.refusal.reason)+' · файл: '+esc(c.refusal.file):''}. Карточка доступна только для чтения.</span></div></div>`;
+  return `
+  <button class="back" data-action="go" data-v="cases">${ic('back')}Все кейсы</button>
+  <div class="case-head"><div class="ttl"><div class="row"><h1 class="mono" style="font-family:var(--f-head)">${c.id}</h1>${pill(c.status)}</div>
+    <div class="meta"><span><b style="color:var(--ink);font-weight:500">${esc(c.fio)}</b></span><span class="mono">ИИН ${c.iin}</span><span>${c.kind} · ${esc(c.source)}</span><span>Зарегистрирован ${c.created}</span></div></div>
+    <div class="case-actions">${actions}</div></div>
+  ${stepper}${banner}
+  <div class="case-grid">
+    <div class="card"><div class="tabs" role="tablist">${tabs.map(t=>`<button class="tab ${S.tab===t[0]?'on':''}" role="tab" aria-selected="${S.tab===t[0]}" data-action="tab" data-v="${t[0]}">${t[1]}${t[2]!=null?`<span class="n">${t[2]}</span>`:''}</button>`).join('')}</div>
+      <div class="tab-body">${({overview:tOverview,signal:tSignal,family:tFamily,assessment:tAssessment,ipr:tIpr,measures:tMeasures,visits:tVisits,surveys:tSurveys,monitoring:tMonitoring,docs:tDocs,history:tHistory})[S.tab](c)}</div></div>
+    ${caseAside(c)}
+  </div>`;
+}
+function caseAside(c){
+  const cs=conds(c);const it=c.ipr?c.ipr.items:[];
+  const path=[
+    ['Сигнал зарегистрирован',true,c.created.slice(0,10)],['Проверка ИИН и ЦКС',true,c.family.length+' чел.'],
+    ['Ответственный назначен',!!c.responsible,c.respSince?c.respSince.slice(0,10):''],['Оценка потребностей',!!c.assessment,c.assessment?String(c.assessment.at).slice(0,10):''],
+    ['ИПР создан',!!c.ipr,c.ipr?c.ipr.created.slice(0,10):''],['Меры поддержки',it.some(x=>x.status==='done'),c.ipr?`${it.filter(x=>x.status==='done').length} из ${it.filter(x=>x.status!=='cancelled').length}`:''],
+    ['Выезды и опросы',c.visits.some(v=>v.status==='done'),c.visits.length?`${c.visits.filter(v=>v.status==='done').length} из ${c.visits.length}`:'по необходимости'],
+    ['Мониторинг',c.monitoring.length>0,c.monitoring.length?c.monitoring.length+' '+plural(c.monitoring.length,'запись','записи','записей'):''],
+    [c.status==='refused'?'Отказ от сопровождения':'Автозавершение',isFinal(c),c.status==='done'?(c.doneAt||'').slice(0,10):c.status==='refused'&&c.refusal?c.refusal.date:''],
+  ];
+  return `<aside class="aside">
+    <div class="card"><div class="card-b"><div class="lbl" style="margin-bottom:10px">Ответственный</div>
+      ${c.responsible?`<div class="resp"><span class="ava">${initials(c.responsible)}</span><div><b>${c.responsible}</b><span>${esc(orgOf(c.responsible))}<br>с ${c.respSince}</span></div></div>`:`<div class="alert warn">${ic('alert')}<div>Ответственный не назначен</div></div>`}
+    </div></div>
+    <div class="card"><div class="card-b"><div class="lbl" style="margin-bottom:10px">Условия автозавершения</div>
+      <ul class="conds">${cs.map(x=>`<li class="${x[1]?'y':'n'}"><span class="ck">${x[1]?ic('check'):''}</span>${x[0]}</li>`).join('')}</ul>
+      <p class="hint" style="margin-top:10px">Проверяется автоматически после каждого изменения меры или выезда. Отменённые меры и опросы не влияют на завершение.</p>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="lbl" style="margin-bottom:8px">Путь кейса</div>
+      <ul class="path">${path.map((p,i)=>`<li class="${p[1]?'y':'n'} ${i===path.length-1?'fin':''}"><span class="d"></span>${p[0]}<span class="x">${p[2]||''}</span></li>`).join('')}</ul>
+    </div></div>
+  </aside>`;
+}
+function nextStep(c){
+  const it=c.ipr?c.ipr.items:[];
+  if(c.status==='new')return ['Назначьте ответственного','Кейс зарегистрирован и ожидает назначения ответственного администратора.','assign','Назначить'];
+  if(!c.assessment)return ['Проведите оценку потребностей','Зафиксируйте проблемы, потребности, риски и направления поддержки.','tab:assessment','Перейти к оценке'];
+  if(!c.ipr)return ['Создайте ИПР','После сохранения меры сразу переходят в исполнение — согласование не требуется.','tab:ipr','Создать ИПР'];
+  if(c.status==='active'){const a=it.filter(x=>x.status==='assigned').length;const v=c.visits.filter(x=>x.status==='assigned').length;
+    return ['Контролируйте исполнение',`В работе: ${a} ${plural(a,'мера','меры','мер')}, ${v} ${plural(v,'выезд','выезда','выездов')}. Кейс завершится автоматически, когда условия будут выполнены.`,'tab:measures','К мерам'];}
+  return null;
+}
+function tOverview(c){
+  const ns=canEdit(c)?nextStep(c):null;
+  const recent=c.history.slice(-4).reverse();
+  return `${ns?`<div class="next"><div><b>Следующий шаг: ${ns[0]}</b><span class="small">${ns[1]}</span></div><button class="btn primary sm" data-action="${ns[2].startsWith('tab:')?'tab':ns[2]}" data-v="${ns[2].replace('tab:','')}">${ns[3]}</button></div>`:''}
+  <dl class="kv">
+    <dt>Получатель</dt><dd>${esc(c.fio)}</dd>
+    <dt>ИИН</dt><dd class="mono">${c.iin}</dd>
+    <dt>Дата рождения</dt><dd class="mono">${c.dob} <span class="muted" style="font-family:var(--f-ui)">(${ageOf(c.dob)} лет)</span></dd>
+    <dt>Телефон</dt><dd>${esc(c.phone)||'—'}</dd>
+    <dt>Адрес проживания</dt><dd>${esc(c.address)} ${srcTag(c.addrSrc)}</dd>
+    <dt>Основание</dt><dd>${c.kind} · ${esc(c.source)}${c.sourceDetail?' — '+esc(c.sourceDetail):''}</dd>
+    <dt>Канал регистрации</dt><dd>${c.channel}</dd>
+    <dt>Признаки ТЖС</dt><dd>${c.signs.length?`<div class="chips">${c.signs.map(s=>`<span class="tag">${s}</span>`).join('')}</div>`:'—'}</dd>
+    <dt>Состав семьи</dt><dd>${c.family.length} ${plural(c.family.length,'человек','человека','человек')}</dd>
+    <dt>ЦПС</dt><dd>${CPS}</dd>
+  </dl>
+  <h3 style="margin:22px 0 10px">Последние действия</h3>
+  <div class="list">${recent.map(h=>`<div class="meta-row"><span class="mono">${h.ts}</span><span style="color:var(--ink);font-weight:500">${h.action}</span><span>${esc(h.nw)}</span><span>${h.user}</span></div>`).join('')}</div>`;
+}
+function tSignal(c){
+  const rows=[['Тип',c.kind],['Источник обращения',c.source+(c.sourceDetail?' — '+c.sourceDetail:'')],['Канал',c.channel],['Дата регистрации',c.created],['Описание ситуации',c.description],['Выявленные признаки и причины ТЖС',c.signs.join(', ')],['Первично выявленные потребности',c.needs],['Первично выявленные риски',c.risks],['Жилищные условия',c.housing],['Занятость',c.employment],['Дети',c.children],['Ранее оказанная помощь',c.prevHelp],['Комментарий',c.comment]];
+  return `${c.mobile?`<div class="item" style="margin-bottom:16px"><div class="item-h"><h3>Данные фиксации в мобильном приложении</h3><span class="tag">обязательные для мобильного сигнала</span></div>
+    <div class="media">${c.mobile.photos.map(p=>`<div class="ph">${ic('camera')}<span>${p}</span></div>`).join('')}</div>
+    <div class="meta-row"><span>${ic('pin')}<span class="mono">${c.mobile.geo}</span></span><span>${ic('clock')}<span class="mono">${c.mobile.fixedAt}</span></span></div></div>`:''}
+  <dl class="kv">${rows.map(r=>`<dt>${r[0]}</dt><dd>${esc(r[1])||'<span class="faint">—</span>'}</dd>`).join('')}</dl>
+  <p class="hint" style="margin-top:12px">Первичная информация фиксируется при регистрации сигнала; отдельный этап «Первичное уточнение» не используется.</p>`;
+}
+function tFamily(c){
+  const ed=canEdit(c);
+  return `<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center"><p class="muted small" style="flex:1;min-width:220px">Состав семьи получен из ЦКС и используется при проведении опросов. Родственная связь из ЦКС вручную не изменяется.</p>
+    ${ed?`<button class="btn sm" data-action="cksRefresh">${ic('refresh')}Обновить из ЦКС</button><button class="btn sm" data-action="addMember">${ic('plus')}Добавить вручную</button>`:''}</div>
+  <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Ф.И.О.</th><th>ИИН</th><th>Дата рождения</th><th>Возраст</th><th>Родственная связь</th><th>Источник</th></tr></thead><tbody>
+  ${c.family.map(m=>`<tr><td>${esc(m.fio)}</td><td class="mono">${m.iin||'—'}</td><td class="mono">${m.dob}</td><td>${ageOf(m.dob)}</td><td>${m.rel}</td><td>${srcTag(m.src)}</td></tr>`).join('')}</tbody></table></div>`;
+}
+function tAssessment(c){
+  const ed=canEdit(c)&&c.status!=='new';
+  if(S.ad&&S.ad.caseId===c.id){
+    const a=S.ad;const ta=(k,l,req)=>`<div class="field"><label for="ad-${k}" class="${req?'req':''}">${l}</label><textarea class="inp" id="ad-${k}" data-bind="ad.${k}">${esc(a[k])}</textarea></div>`;
+    return `<div class="form">
+      ${a.err?`<div class="alert bad">${ic('alert')}<div>${a.err}</div></div>`:''}
+      ${ta('problems','Выявленные проблемы',1)}${ta('needs','Потребности семьи и отдельных членов семьи',1)}${ta('risks','Риски',1)}
+      <div class="field"><span class="lbl req">Направления необходимой поддержки</span><div class="chips">${DIRECTIONS.map(s=>`<button class="chip ${a.directions.includes(s)?'on':''}" data-action="adToggle" data-k="directions" data-v="${s}">${s}</button>`).join('')}</div></div>
+      <div class="field"><span class="lbl">Организации, которые могут участвовать в сопровождении</span><div class="chips">${ORGS.map(s=>`<button class="chip ${a.orgs.includes(s)?'on':''}" data-action="adToggle" data-k="orgs" data-v="${esc(s)}">${esc(s)}</button>`).join('')}</div></div>
+      ${ta('expected','Ожидаемые результаты',1)}
+      <div class="field"><span class="lbl">Результаты выездов и опросов</span><div class="quote small muted">${visitSummary(c)}</div><span class="hint">Подтягивается автоматически из раздела «Выезды»</span></div>
+      <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn" data-action="adCancel">Отмена</button><button class="btn primary" data-action="adSave">${ic('check')}Сохранить оценку</button></div>
+    </div>`;
+  }
+  if(!c.assessment)return `<div class="empty">${ic('clip')}<b>Оценка потребностей не проведена</b><span>${c.status==='new'?'Сначала назначьте ответственного':'Проводится ответственным администратором после назначения'}</span>${ed?`<button class="btn primary" data-action="adEdit">${ic('edit')}Провести оценку</button>`:''}</div>`;
+  const a=c.assessment;
+  return `<div style="display:flex;gap:8px;margin-bottom:12px;align-items:center;flex-wrap:wrap"><span class="muted small" style="flex:1">Проведена ${a.at} · ${a.by}</span>${ed?`<button class="btn sm" data-action="adEdit">${ic('edit')}Изменить</button>`:''}</div>
+  <dl class="kv"><dt>Выявленные проблемы</dt><dd>${esc(a.problems)}</dd><dt>Потребности</dt><dd>${esc(a.needs)}</dd><dt>Риски</dt><dd>${esc(a.risks)}</dd>
+    <dt>Направления поддержки</dt><dd><div class="chips">${a.directions.map(s=>`<span class="tag">${s}</span>`).join('')}</div></dd>
+    <dt>Организации</dt><dd>${a.orgs.map(esc).join('<br>')||'—'}</dd><dt>Ожидаемые результаты</dt><dd>${esc(a.expected)}</dd>
+    <dt>Результаты выездов и опросов</dt><dd>${visitSummary(c)}</dd></dl>`;
+}
+function visitSummary(c){const d=c.visits.filter(v=>v.status==='done');if(!d.length)return '<span class="faint">Выезды не проводились</span>';
+  return d.map(v=>`${v.fact.slice(0,10)} — ${esc(v.goal)}. Рекомендация: ${esc(v.recommendation)} Опросов: ${v.surveys.length}.`).join('<br>')}
+
+/* ---------- IPR ---------- */
+function tIpr(c){
+  const ed=canEdit(c);
+  if(S.iprDraft&&S.iprDraft.caseId===c.id)return iprEditor(c);
+  if(!c.ipr){
+    if(!c.assessment)return `<div class="empty">${ic('clip')}<b>ИПР ещё не создан</b><span>Сначала проведите оценку потребностей семьи</span>${ed&&c.status!=='new'?`<button class="btn" data-action="tab" data-v="assessment">Перейти к оценке</button>`:''}</div>`;
+    return `<div class="empty">${ic('clip')}<b>ИПР ещё не создан</b><span>ИПР создаётся в карточке кейса без согласования. После сохранения меры сразу доступны для исполнения.</span>${ed?`<button class="btn primary" data-action="iprEdit">${ic('plus')}Создать ИПР</button>`:''}</div>`;
+  }
+  const it=c.ipr.items;
+  return `<div style="display:flex;gap:8px;margin-bottom:14px;align-items:center;flex-wrap:wrap"><div style="flex:1;min-width:220px"><h3>Индивидуальный план работы</h3><span class="muted small">Создан ${c.ipr.created} · ${c.ipr.by}${c.ipr.updated?' · изменён '+c.ipr.updated:''}</span></div>
+    ${ed?`<button class="btn sm" data-action="iprEdit">${ic('edit')}Изменить ИПР / добавить меру</button>`:''}</div>
+  <div class="tbl-wrap"><table class="tbl"><thead><tr><th>№</th><th>Получатель меры</th><th>Проблема / потребность</th><th>Мера поддержки</th><th>Организация · исполнитель</th><th>Ожидаемый результат</th><th>Статус меры</th></tr></thead><tbody>
+  ${it.map((x,i)=>`<tr class="${x.status==='cancelled'?'cancelled':''}"><td>${i+1}</td><td>${esc(short(memberName(c,x.recipient)))}</td><td>${esc(x.problem)}</td><td class="mname">${esc(x.measure)}</td><td>${esc(x.org)}<div class="sub">${x.executor?esc(x.executor):'исполнитель не определён'}</div></td><td>${esc(x.expected)}${x.comment?`<div class="sub">${esc(x.comment)}</div>`:''}</td><td>${mpill(x.status)}</td></tr>`).join('')}
+  </tbody></table></div>
+  <p class="hint" style="margin-top:12px">Статусы ИПР и согласование не используются. Изменения плана сохраняют историю; удаление мер и истории исполнения не допускается.</p>`;
+}
+function iprEditor(c){
+  const D=S.iprDraft;
+  const fam=[['fam','Семья в целом'],...c.family.map(m=>[m.id,m.fio])];
+  const measOpts=v=>[...new Set(MEASURES.map(m=>m.cat))].map(cat=>`<optgroup label="${cat}">${MEASURES.filter(m=>m.cat===cat).map(m=>`<option ${v===m.name?'selected':''}>${m.name}</option>`).join('')}</optgroup>`).join('');
+  const sel=(i,k,opts,v,dis,rer)=>`<select class="inp" id="ipr-${i}-${k}" data-bind="iprDraft.rows.${i}.${k}" ${rer?'data-rerender="1"':''} ${dis?'disabled':''}>${opts}</select>`;
+  return `<div class="form">
+    <div class="alert info">${ic('info')}<div>${c.ipr?'Изменение ИПР. Выполненные и отменённые меры заблокированы; для замены меры отмените её с причиной «Заменена другой мерой» и добавьте новую.':'ИПР сохраняется без согласования — меры сразу переходят в статус «Назначен», кейс — в статус «В сопровождении».'}</div></div>
+    ${S.iprErr?`<div class="alert bad">${ic('alert')}<div>${S.iprErr}</div></div>`:''}
+    ${D.rows.map((r,i)=>{const lock=r.status&&r.status!=='assigned';const old=!r.isNew;
+      const execs=['',...EXECS.filter(u=>USERS[u].org===r.org),...(r.org===CPS?[]:[])];
+      return `<div class="ipr-row ${lock?'locked':''}"><div class="ipr-row-h"><span class="n-badge">${i+1}</span><b>${r.isNew?'Новая мера':esc(r.measure)}</b>${r.status?mpill(r.status):''}<span class="sp"></span>${r.isNew?`<button class="icon-btn" data-action="iprDel" data-i="${i}" aria-label="Удалить строку">${ic('x')}</button>`:''}</div>
+      <div class="grid3">
+        <div class="field"><label class="req" for="ipr-${i}-recipient">Получатель меры</label>${sel(i,'recipient','<option value="">—</option>'+fam.map(f=>`<option value="${f[0]}" ${r.recipient===f[0]?'selected':''}>${esc(f[1])}</option>`).join(''),r.recipient,old)}</div>
+        <div class="field"><label class="req" for="ipr-${i}-problem">Проблема / потребность</label><input class="inp" id="ipr-${i}-problem" data-bind="iprDraft.rows.${i}.problem" value="${esc(r.problem)}" ${old?'disabled':''}></div>
+        <div class="field"><label class="req" for="ipr-${i}-measure">Мера поддержки <span class="tag">справочник</span></label>${sel(i,'measure','<option value="">—</option>'+measOpts(r.measure),r.measure,old)}</div>
+        <div class="field"><label class="req" for="ipr-${i}-org">Организация</label>${sel(i,'org','<option value="">—</option>'+ORGS.map(o=>`<option ${r.org===o?'selected':''}>${esc(o)}</option>`).join(''),r.org,lock,1)}</div>
+        <div class="field"><label for="ipr-${i}-executor">Исполнитель</label>${sel(i,'executor',execs.map(u=>`<option value="${u}" ${r.executor===u?'selected':''}>${u||'— назначить организации —'}</option>`).join(''),r.executor,lock||!r.org)}</div>
+        <div class="field"><label for="ipr-${i}-expected">Ожидаемый результат</label><input class="inp" id="ipr-${i}-expected" data-bind="iprDraft.rows.${i}.expected" value="${esc(r.expected)}" ${lock?'disabled':''}></div>
+      </div>
+      <div class="field"><label for="ipr-${i}-comment">Комментарий</label><input class="inp" id="ipr-${i}-comment" data-bind="iprDraft.rows.${i}.comment" value="${esc(r.comment)}" ${lock?'disabled':''}></div>
+      </div>`}).join('')}
+    <div><button class="btn" data-action="iprAdd">${ic('plus')}Добавить меру</button></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap"><button class="btn" data-action="iprCancel">Отмена</button><button class="btn primary" data-action="iprSave">${ic('check')}${c.ipr?'Сохранить изменения':'Сохранить ИПР'}</button></div>
+  </div>`;
+}
+const blankRow=()=>({id:'n'+uid(),isNew:true,recipient:'',problem:'',measure:'',org:'',executor:'',expected:'',comment:''});
+function saveIpr(c){
+  const rows=S.iprDraft.rows;
+  const bad=rows.findIndex(r=>r.isNew&&(!r.recipient||!r.problem.trim()||!r.measure||!r.org));
+  if(bad>=0){S.iprErr=`Строка ${bad+1}: заполните получателя, проблему, меру и организацию.`;render();return}
+  if(!rows.length){S.iprErr='Добавьте хотя бы одну меру.';render();return}
+  const first=!c.ipr;const t=nowStr();
+  if(first)c.ipr={created:t,by:me(),items:[]};
+  let added=0,changed=0;
+  rows.forEach(r=>{
+    if(r.isNew){c.ipr.items.push({id:'i'+uid(),recipient:r.recipient,problem:r.problem,measure:r.measure,org:r.org,executor:r.executor,expected:r.expected,comment:r.comment,status:'assigned'});added++;
+      if(!first)log(c,'Изменение ИПР',{nw:'Добавлена мера: '+r.measure});
+      log(c,'Назначение меры',{nw:`${r.measure} → ${r.executor||r.org}`});}
+    else{const x=c.ipr.items.find(i=>i.id===r.id);if(!x||x.status!=='assigned')return;
+      ['org','executor','expected','comment'].forEach(k=>{if((x[k]||'')!==(r[k]||'')){log(c,'Изменение ИПР',{old:`${x.measure}: ${x[k]||'—'}`,nw:r[k]||'—',comment:{org:'Организация',executor:'Исполнитель',expected:'Ожидаемый результат',comment:'Комментарий'}[k]});x[k]=r[k];changed++}});}
+  });
+  if(first){log(c,'Создание ИПР',{nw:`${added} ${plural(added,'мера','меры','мер')} поддержки`});if(c.status==='assigned'){c.status='active';log(c,'Смена статуса кейса',{user:'Система',old:'Назначен',nw:'В сопровождении'})}}
+  else if(added||changed)c.ipr.updated=t;
+  S.iprDraft=null;S.iprErr='';render();
+  toast(first?`ИПР сохранён. ${added} ${plural(added,'мера назначена','меры назначены','мер назначено')}, кейс в сопровождении.`:'Изменения ИПР сохранены, история зафиксирована.',true);
+}
+
+/* ---------- measures ---------- */
+function tMeasures(c){
+  if(!c.ipr)return `<div class="empty">${ic('list')}<b>Меры появятся после создания ИПР</b></div>`;
+  const all=c.ipr.items;const f=S.mfilter;const list=all.filter(x=>f==='all'||x.status===f);
+  return `<div class="chips" style="margin-bottom:14px">${['all','assigned','done','cancelled'].map(k=>`<button class="chip ${f===k?'on':''}" data-action="mfilter" data-v="${k}">${k==='all'?'Все':MST[k]} <span class="n">${k==='all'?all.length:all.filter(x=>x.status===k).length}</span></button>`).join('')}</div>
+  <div class="list">${list.map(x=>measureCard(c,x)).join('')||`<div class="empty"><span>Нет мер с таким статусом</span></div>`}</div>`;
+}
+function measureCard(c,x,showCase){
+  const ed=!isFinal(c)&&x.status==='assigned';const admin=S.role==='admin';const mine=x.executor===me();
+  return `<div class="item"><div class="item-h"><h3>${esc(x.measure)}</h3>${mpill(x.status)}</div>
+    <div class="meta-row">${showCase?`<span class="mono">${c.id}</span>`:''}<span>${ic('users')}${esc(memberName(c,x.recipient))}</span><span>${esc(x.org)}</span><span>Исполнитель: ${x.executor?esc(x.executor):'<b style="color:var(--warn)">не определён</b>'}</span></div>
+    <div class="subgrid"><div><div class="lbl">Проблема / потребность</div>${esc(x.problem)}</div><div><div class="lbl">Ожидаемый результат</div>${esc(x.expected)||'—'}</div></div>
+    ${x.status==='done'?`<div class="alert ok">${ic('check')}<div class="alert-t"><b style="color:var(--ok)">Результат выполнения</b> · ${x.doneAt} · ${x.doneBy}<br>${esc(x.result)}${x.resComment?`<div class="small muted">${esc(x.resComment)}</div>`:''}${x.files&&x.files.length?`<div class="files" style="margin-top:6px">${x.files.map(n=>`<span class="file">${ic('file')}${esc(n)}</span>`).join('')}</div>`:''}</div></div>`:''}
+    ${x.status==='cancelled'?`<div class="alert info" style="background:var(--surface-2);color:var(--muted)">${ic('x')}<div><b>Причина отмены:</b> ${esc(x.cancelReason)}${x.cancelComment?' — '+esc(x.cancelComment):''}<div class="small">${x.cancelAt} · ${x.cancelBy}</div></div></div>`:''}
+    ${ed&&(admin||mine)?`<div style="display:flex;gap:8px;flex-wrap:wrap">${!x.executor&&admin?`<button class="btn sm" data-action="mExec" data-c="${c.id}" data-id="${x.id}">${ic('users')}Определить исполнителя</button>`:''}<button class="btn primary sm" data-action="mDone" data-c="${c.id}" data-id="${x.id}">${ic('check')}Выполнить</button>${admin?`<button class="btn danger sm" data-action="mCancel" data-c="${c.id}" data-id="${x.id}">${ic('x')}Отменить меру</button>`:''}</div>`:''}
+  </div>`;
+}
+
+/* ---------- visits & surveys ---------- */
+function tVisits(c){
+  const ed=canEdit(c)&&c.status!=='new';
+  return `<div style="display:flex;gap:8px;margin-bottom:14px;align-items:center;flex-wrap:wrap"><p class="muted small" style="flex:1;min-width:220px">Выезд — дополнительное действие, не обязателен для каждого кейса. Опрос при выезде — по необходимости.</p>${ed?`<button class="btn primary sm" data-action="vAdd">${ic('plus')}Назначить выезд</button>`:''}</div>
+  ${c.visits.length?`<div class="list">${c.visits.map(v=>visitCard(c,v)).join('')}</div>`:`<div class="empty">${ic('nav')}<b>Выездов нет</b><span>Назначьте выезд, если требуется оценка на месте</span></div>`}`;
+}
+function visitCard(c,v,showCase){
+  const ed=!isFinal(c)&&S.role==='admin';
+  return `<div class="item"><div class="item-h"><h3>${esc(v.goal)}</h3>${v.status==='done'?mpill('done'):mpill('assigned')}</div>
+    <div class="meta-row">${showCase?`<span class="mono">${c.id}</span>`:''}<span>${ic('pin')}${esc(v.address)}</span><span>${ic('clock')}План: <span class="mono">${v.plan}</span></span>${v.fact?`<span>Факт: <span class="mono">${v.fact}</span></span>`:''}<span>${ic('users')}${v.participants.map(esc).join(', ')}</span></div>
+    ${v.status==='done'?`<div class="subgrid"><div><div class="lbl">Результат</div>${esc(v.result)||'—'}</div><div><div class="lbl">Рекомендация</div>${esc(v.recommendation)}</div></div>
+      <div class="media">${v.media.map(m=>`<div class="ph">${ic(m.startsWith('VID')?'nav':'camera')}<span>${esc(m)}</span></div>`).join('')}</div>
+      <div class="meta-row"><span>${ic('pin')}Геолокация: <span class="mono">${esc(v.geo)}</span></span></div>`:''}
+    <div><div class="lbl" style="margin-bottom:6px">Опросы (${v.surveys.length})</div>
+      ${v.surveys.length?`<div class="list" style="gap:6px">${v.surveys.map(s=>`<button class="member" data-action="sView" data-c="${c.id}" data-v="${v.id}" data-id="${s.id}"><span class="ava">${initials(memberName(c,s.member))}</span><span class="grow"><b style="font-weight:500">${esc(memberName(c,s.member))}</b><br><span class="small muted">${TEMPLATES.find(t=>t.id===s.tpl).name} · ${s.at||''}</span></span>${s.status==='done'?'<span class="pill p-m-done">Завершён</span>':'<span class="pill p-m-assigned">Не завершён</span>'}</button>`).join('')}</div>`:'<span class="faint small">Опросы не проводились</span>'}</div>
+    ${ed?`<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" data-action="sAdd" data-c="${c.id}" data-v="${v.id}">${ic('plus')}Добавить опрос</button>${v.status==='assigned'?`<button class="btn primary sm" data-action="vDone" data-c="${c.id}" data-v="${v.id}">${ic('check')}Завершить выезд</button>`:''}</div>`:''}
+  </div>`;
+}
+function tSurveys(c){
+  const rows=c.visits.flatMap(v=>v.surveys.map(s=>({v,s})));
+  if(!rows.length)return `<div class="empty">${ic('clip')}<b>Опросов нет</b><span>Опрос создаётся во время выезда и не является обязательным</span></div>`;
+  return `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Член семьи</th><th>Шаблон</th><th>Выезд</th><th>Заполнил</th><th>Статус</th></tr></thead><tbody>
+  ${rows.map(({v,s})=>`<tr class="click" data-action="sView" data-c="${c.id}" data-v="${v.id}" data-id="${s.id}"><td>${esc(memberName(c,s.member))}<div class="sub">${(c.family.find(m=>m.id===s.member)||{}).rel||''}</div></td><td>${TEMPLATES.find(t=>t.id===s.tpl).name}</td><td>${esc(v.goal)}<div class="sub mono">${v.fact||v.plan}</div></td><td>${s.by}<div class="sub mono">${s.at}</div></td><td>${s.status==='done'?'<span class="pill p-m-done">Завершён</span>':'<span class="pill p-m-assigned">Не завершён</span>'}</td></tr>`).join('')}
+  </tbody></table></div><p class="hint" style="margin-top:12px">Наличие опросов не участвует в условиях автоматического завершения кейса.</p>`;
+}
+function tMonitoring(c){
+  const ed=canEdit(c)&&!!c.ipr;
+  return `<div style="display:flex;gap:8px;margin-bottom:14px;align-items:center;flex-wrap:wrap"><p class="muted small" style="flex:1;min-width:220px">Фиксация изменений ситуации семьи, эффективности мер и необходимости дополнительных действий.</p>${ed?`<button class="btn primary sm" data-action="monAdd">${ic('plus')}Добавить запись</button>`:''}</div>
+  ${c.monitoring.length?`<div class="list">${c.monitoring.slice().reverse().map(m=>`<div class="item"><div class="item-h"><h3 class="mono" style="font-family:var(--f-head)">${m.at}</h3><span class="tag">Эффективность мер: ${m.eff}</span></div><div class="meta-row"><span>${m.by}</span></div>
+    <div class="subgrid"><div><div class="lbl">Изменения ситуации</div>${esc(m.change)}</div><div><div class="lbl">Достигнутые результаты</div>${esc(m.achieved)||'—'}</div><div><div class="lbl">Дополнительные действия</div>${esc(m.extra)||'Не требуются'}</div><div><div class="lbl">Рекомендации</div>${esc(m.rec)||'—'}</div></div></div>`).join('')}</div>`:`<div class="empty">${ic('signal')}<b>Записей мониторинга нет</b>${!c.ipr?'<span>Мониторинг ведётся после создания ИПР</span>':''}</div>`}`;
+}
+function tDocs(c){
+  const ed=canEdit(c);
+  return `<div style="display:flex;gap:8px;margin-bottom:14px;justify-content:flex-end">${ed?`<label class="btn sm upl">${ic('plus')}Загрузить документ<input type="file" multiple data-files="case"></label>`:''}</div>
+  ${c.docs.length?`<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Файл</th><th>Раздел</th><th>Загружен</th><th>Пользователь</th></tr></thead><tbody>${c.docs.map(d=>`<tr><td><span class="file">${ic('file')}${esc(d.name)}</span></td><td>${esc(d.from)}</td><td class="mono">${d.at}</td><td>${d.by}</td></tr>`).join('')}</tbody></table></div>`:`<div class="empty">${ic('folder')}<b>Документов нет</b></div>`}`;
+}
+function tHistory(c){
+  return `<div class="tbl-wrap"><table class="tbl hist"><thead><tr><th>Дата и время</th><th>Пользователь · организация</th><th>Действие</th><th>Было → стало</th><th>Причина · комментарий</th></tr></thead><tbody>
+  ${c.history.slice().reverse().map(h=>`<tr><td class="mono">${h.ts}</td><td>${h.user}<div class="sub">${esc(h.org)}</div></td><td class="act">${h.action}</td><td><span class="chg">${h.old?`<s>${esc(h.old)}</s>→`:''}<span>${esc(h.nw)}</span></span></td><td>${h.reason?`<b style="font-weight:500">${esc(h.reason)}</b>`:''}${h.reason&&h.comment?'<br>':''}${h.comment?`<span class="muted">${esc(h.comment)}</span>`:''}${!h.reason&&!h.comment?'<span class="faint">—</span>':''}</td></tr>`).join('')}
+  </tbody></table></div>`;
+}
+
+/* ================= executor views ================= */
+function allMyMeasures(){return DB.cases.flatMap(c=>(c.ipr?c.ipr.items:[]).filter(x=>x.executor===me()).map(m=>({c,m})))}
+function allMyVisits(){return DB.cases.flatMap(c=>c.visits.filter(v=>v.participants.includes(me())).map(v=>({c,v})))}
+function vTasks(){
+  const l=allMyMeasures();const a=l.filter(x=>x.m.status==='assigned');const rest=l.filter(x=>x.m.status!=='assigned');
+  return `<div class="page-head"><div><h1>Мои меры</h1><p>Меры поддержки, назначенные вам. Выполнение требует заполнения результата.</p></div></div>
+  <h3 style="margin-bottom:10px">В работе · ${a.length}</h3>
+  <div class="list" style="margin-bottom:26px">${a.map(x=>measureCard(x.c,x.m,true)).join('')||`<div class="card empty">${ic('check')}<b>Назначенных мер нет</b></div>`}</div>
+  <h3 style="margin-bottom:10px">Завершённые · ${rest.length}</h3><div class="list">${rest.map(x=>measureCard(x.c,x.m,true)).join('')||'<span class="faint">Нет</span>'}</div>`;
+}
+function vMyVisits(){
+  const l=allMyVisits();
+  return `<div class="page-head"><div><h1>Мои выезды</h1><p>Выезды, в которых вы участвуете. Права на завершение выезда — у ответственного администратора.</p></div></div>
+  <div class="list">${l.map(x=>visitCard(x.c,x.v,true)).join('')||`<div class="card empty">${ic('nav')}<b>Выездов нет</b></div>`}</div>`;
+}
+
+/* ================= dictionaries ================= */
+function vDicts(){
+  const t=S.dictTab;
+  return `<div class="page-head"><div><h1>Справочники</h1><p>Меры поддержки и шаблоны опросов хранятся в справочниках и не зашиты в интерфейс</p></div></div>
+  <div class="card"><div class="tabs">${[['measures','Меры поддержки',MEASURES.length],['tpl','Шаблоны опросов',TEMPLATES.length]].map(x=>`<button class="tab ${t===x[0]?'on':''}" data-action="dict" data-v="${x[0]}">${x[1]}<span class="n">${x[2]}</span></button>`).join('')}</div>
+  ${t==='measures'?`<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Код</th><th>Мера поддержки</th><th>Направление</th></tr></thead><tbody>${MEASURES.map(m=>`<tr><td class="mono">${m.code}</td><td>${m.name}</td><td><span class="tag">${m.cat}</span></td></tr>`).join('')}</tbody></table></div>`:
+  `<div class="tab-body list">${TEMPLATES.map(tp=>`<div class="item"><div class="item-h"><h3>${tp.name}</h3><span class="tag">${tp.ages}</span></div>
+    <div class="tbl-wrap"><table class="tbl" style="min-width:560px"><thead><tr><th>Вопрос</th><th>Тип ответа</th><th>Обязательный</th></tr></thead><tbody>${tp.q.map(q=>`<tr><td>${q.t}${q.opts?`<div class="sub">${q.opts.join(' · ')}</div>`:''}</td><td>${TYPE_LBL[q.type]}</td><td>${q.req?'<span class="pill p-m-done">Да</span>':'<span class="faint">Нет</span>'}</td></tr>`).join('')}</tbody></table></div></div>`).join('')}</div>`}
+  </div>`;
+}
+
+/* ================= modal engine ================= */
+let M=null;
+function openModal(cfg){M=Object.assign({v:{},err:''},cfg);drawModal();setTimeout(()=>{const f=$('#modal .mbody input:not([type=file]),#modal .mbody select,#modal .mbody textarea');if(f)f.focus()},30)}
+function closeModal(){M=null;drawModal()}
+function drawModal(){
+  const r=$('#modal');if(!M){r.hidden=true;r.innerHTML='';return}
+  const sc=r.querySelector('.mbody')?r.querySelector('.mbody').scrollTop:0;
+  r.hidden=false;
+  r.innerHTML=`<div class="mback" data-action="mclose"></div><div class="modal ${M.wide?'wide':''}" role="dialog" aria-modal="true" aria-labelledby="mt">
+    <div class="mhead"><h2 id="mt">${M.title}</h2><button class="icon-btn" data-action="mclose" aria-label="Закрыть">${ic('x')}</button></div>
+    <div class="mbody">${M.err?`<div class="alert bad">${ic('alert')}<div>${M.err}</div></div>`:''}${M.render(M.v)}</div>
+    <div class="mfoot">${M.footNote?`<span class="sp small muted" style="align-self:center">${M.footNote}</span>`:''}${(M.buttons||[]).map((b,i)=>`<button class="btn ${b.cls||''}" data-action="mbtn" data-i="${i}">${b.label}</button>`).join('')}</div></div>`;
+  const b=r.querySelector('.mbody');if(b)b.scrollTop=sc;
+}
+const mv=(k,v)=>M&&(M.v[k]??v);
+const mIn=(k,l,o={})=>`<div class="field"><label for="mv-${k}" class="${o.req?'req':''}">${l}</label>${o.ta?`<textarea class="inp" id="mv-${k}" data-mv="${k}" placeholder="${o.ph||''}">${esc(M.v[k]||'')}</textarea>`:`<input class="inp ${o.mono?'mono':''}" id="mv-${k}" type="${o.type||'text'}" data-mv="${k}" value="${esc(M.v[k]||'')}" placeholder="${o.ph||''}">`}${o.hint?`<span class="hint">${o.hint}</span>`:''}</div>`;
+const mSel=(k,l,opts,o={})=>`<div class="field"><label for="mv-${k}" class="${o.req?'req':''}">${l}</label><select class="inp" id="mv-${k}" data-mv="${k}" ${o.rer?'data-mrer="1"':''}><option value="">— выберите —</option>${opts.map(x=>`<option ${M.v[k]===x?'selected':''}>${esc(x)}</option>`).join('')}</select></div>`;
+const mRadios=(k,l,opts,o={})=>`<div class="field"><span class="lbl ${o.req?'req':''}">${l}</span><div class="radios">${opts.map((x,i)=>`<label><input type="radio" name="mv-${k}" id="mv-${k}-${i}" data-mv="${k}" data-mrer="1" value="${esc(x)}" ${M.v[k]===x?'checked':''}>${esc(x)}</label>`).join('')}</div></div>`;
+const mFiles=(k,l,o={})=>`<div class="field"><span class="lbl ${o.req?'req':''}">${l}</span><div class="files">${(M.v[k]||[]).map(n=>`<span class="file">${ic('file')}${esc(n)}</span>`).join('')}<label class="btn sm upl">${ic('plus')}${o.btn||'Прикрепить'}<input type="file" multiple data-mfiles="${k}"></label>${o.extra||''}</div>${o.hint?`<span class="hint">${o.hint}</span>`:''}</div>`;
+
+/* ---------- actions with modals ---------- */
+function mAssign(c){
+  const re=!!c.responsible;
+  openModal({title:re?'Переназначение ответственного':'Назначение ответственного',v:{u:re?'':''},
+    render:()=>`${re?`<div class="alert info">${ic('info')}<div>Текущий ответственный: <b>${c.responsible}</b>. Изменение будет зафиксировано в истории.</div></div>`:''}
+      ${mSel('u','Ответственный пользователь',ADMINS.filter(u=>u!==c.responsible),{req:1})}${mIn('comment','Комментарий',{ta:1})}`,
+    buttons:[{label:'Отмена',act:closeModal},{label:re?'Переназначить':'Назначить',cls:'primary',act:v=>{
+      if(!v.u)return 'Выберите ответственного.';
+      const old=c.responsible||'—';c.responsible=v.u;c.respSince=nowStr();
+      log(c,re?'Переназначение ответственного':'Назначение ответственного',{old,nw:v.u,comment:v.comment});
+      if(c.status==='new'){c.status='assigned';log(c,'Смена статуса кейса',{user:'Система',old:'Новый',nw:'Назначен'})}
+      toast(`Ответственный: ${v.u}`,true);}}]});
+}
+function mDone(c,x){
+  const warn=willComplete(c,x.id);
+  openModal({title:'Выполнение меры',v:{files:[]},
+    render:()=>`<div class="item" style="background:var(--surface-2)"><b>${esc(x.measure)}</b><div class="meta-row"><span>${esc(memberName(c,x.recipient))}</span><span>${esc(x.org)}</span></div><div class="small muted">Ожидаемый результат: ${esc(x.expected)||'—'}</div></div>
+      ${warn?`<div class="alert warn">${ic('alert')}<div><b>После выполнения данной меры кейс будет автоматически завершен.</b><div class="small">Это последняя активная мера, назначенных выездов нет.</div></div></div>`:''}
+      ${mIn('result','Результат выполнения',{req:1,ta:1,ph:'Что сделано и какой получен результат'})}${mIn('comment','Комментарий',{ta:1})}${mFiles('files','Вложения к результату')}`,
+    buttons:[{label:'Отмена',act:closeModal},{label:warn?'Выполнить и завершить кейс':'Отметить выполненной',cls:'primary',act:v=>{
+      if(!(v.result||'').trim())return 'Поле «Результат выполнения» обязательно для перевода меры в статус «Выполнен».';
+      Object.assign(x,{status:'done',result:v.result,resComment:v.comment||'',files:v.files,doneAt:nowStr(),doneBy:me()});
+      v.files.forEach(n=>c.docs.push({name:n,from:'Мера: '+x.measure,at:nowStr(),by:me()}));
+      log(c,'Выполнение меры',{old:'Назначен',nw:'Выполнен — '+x.measure,comment:v.result});
+      if(!checkAuto(c))toast('Мера выполнена',true);}}]});
+}
+function mCancel(c,x){
+  openModal({title:'Отмена меры',
+    render:v=>`<div class="item" style="background:var(--surface-2)"><b>${esc(x.measure)}</b><div class="small muted">${esc(memberName(c,x.recipient))} · ${esc(x.org)}</div></div>
+      ${mRadios('reason','Причина отмены',CANCEL_REASONS,{req:1})}
+      ${v.reason==='Отказ получателя от конкретной меры'?`<div class="alert info">${ic('info')}<div>Отменяется только эта мера — сопровождение кейса продолжается. Для полного отказа используйте «Отказ от сопровождения».</div></div>`:''}
+      ${mIn('comment','Комментарий',{ta:1,req:v.reason==='Другое'})}
+      <p class="hint">Мера не удаляется — она остаётся в ИПР со статусом «Отменен».</p>`,
+    buttons:[{label:'Назад',act:closeModal},{label:'Отменить меру',cls:'danger-solid',act:v=>{
+      if(!v.reason)return 'Выберите причину отмены.';
+      if(v.reason==='Другое'&&!(v.comment||'').trim())return 'При причине «Другое» комментарий обязателен.';
+      Object.assign(x,{status:'cancelled',cancelReason:v.reason,cancelComment:v.comment||'',cancelAt:nowStr(),cancelBy:me()});
+      log(c,'Отмена меры',{old:'Назначен',nw:'Отменен — '+x.measure,reason:v.reason,comment:v.comment});
+      if(!checkAuto(c))toast('Мера отменена');}}]});
+}
+function mExec(c,x){
+  openModal({title:'Определение исполнителя',
+    render:()=>`<p class="muted">Мера назначена организации <b style="color:var(--ink)">${esc(x.org)}</b>. Выберите исполнителя.</p>${mSel('u','Исполнитель',EXECS.filter(u=>USERS[u].org===x.org).concat(EXECS.filter(u=>USERS[u].org!==x.org)),{req:1})}`,
+    buttons:[{label:'Отмена',act:closeModal},{label:'Назначить',cls:'primary',act:v=>{if(!v.u)return 'Выберите исполнителя.';x.executor=v.u;log(c,'Назначение меры',{old:x.org,nw:`${x.measure} → ${v.u}`});toast('Исполнитель назначен',true)}}]});
+}
+function mVisitAdd(c){
+  openModal({title:'Назначение выезда',v:{address:c.address,plan:'',parts:[me()]},
+    render:v=>`${mIn('goal','Цель выезда',{req:1,ph:'Например: контрольный выезд'})}${mIn('address','Адрес',{req:1})}${mIn('plan','Плановая дата и время',{req:1,type:'datetime-local'})}
+      <div class="field"><span class="lbl">Исполнитель / участники</span><div class="checks">${[...ADMINS,...EXECS].map((u,i)=>`<label><input type="checkbox" id="mv-p-${i}" data-mcheck="parts" value="${u}" ${v.parts.includes(u)?'checked':''}><span>${u}<br><span class="small muted">${esc(orgOf(u))}</span></span></label>`).join('')}</div></div>`,
+    buttons:[{label:'Отмена',act:closeModal},{label:'Назначить выезд',cls:'primary',act:v=>{
+      if(!(v.goal||'').trim()||!v.address||!v.plan)return 'Заполните цель, адрес и плановую дату.';if(!v.parts.length)return 'Выберите хотя бы одного участника.';
+      c.visits.push({id:'v'+uid(),goal:v.goal,address:v.address,plan:fromLocal(v.plan),fact:'',participants:v.parts,status:'assigned',result:'',recommendation:'',comment:'',media:[],geo:'',surveys:[]});
+      log(c,'Создание выезда',{nw:`${v.goal}, план ${fromLocal(v.plan)}`});toast('Выезд назначен',true);}}]});
+}
+function mVisitDone(c,vis){
+  openModal({title:'Завершение выезда',wide:true,v:{fact:nowLocal(),media:[],geo:''},
+    render:v=>`<div class="item" style="background:var(--surface-2)"><b>${esc(vis.goal)}</b><div class="small muted">${esc(vis.address)} · план ${vis.plan}</div></div>
+      <div class="grid2">${mIn('fact','Фактическая дата и время',{type:'datetime-local'})}
+        <div class="field"><label for="mv-geo" class="req">Геолокация</label><div style="display:flex;gap:8px"><input class="inp mono" id="mv-geo" data-mv="geo" value="${esc(v.geo)}" placeholder="широта, долгота"><button class="btn" data-action="mGeo">${ic('pin')}Определить</button></div></div></div>
+      ${mIn('result','Результат',{ta:1})}${mIn('recommendation','Рекомендация',{req:1,ta:1})}${mIn('comment','Комментарий',{ta:1})}
+      ${mFiles('media','Фото или видео',{req:1,btn:'Загрузить файл',extra:`<button class="btn sm ghost" data-action="mDemoPhoto">${ic('camera')}Добавить демо-фото</button>`})}
+      ${vis.surveys.length?'':`<div class="alert info">${ic('info')}<div>Опрос при выезде не проводился — это не препятствует завершению выезда.</div></div>`}`,
+    buttons:[{label:'Отмена',act:closeModal},{label:'Завершить выезд',cls:'primary',act:v=>{
+      const miss=[];if(!(v.recommendation||'').trim())miss.push('рекомендация');if(!v.media.length)miss.push('фото или видео');if(!(v.geo||'').trim())miss.push('геолокация');
+      if(miss.length)return 'Для завершения выезда обязательны: '+miss.join(', ')+'.';
+      Object.assign(vis,{status:'done',fact:fromLocal(v.fact)||nowStr(),result:v.result||'',recommendation:v.recommendation,comment:v.comment||'',media:v.media,geo:v.geo});
+      v.media.forEach(n=>c.docs.push({name:n,from:'Выезд: '+vis.goal,at:nowStr(),by:me()}));
+      log(c,'Выполнение выезда',{old:'Назначен',nw:vis.goal+' → Выполнен'});
+      if(!checkAuto(c))toast('Выезд завершён',true);}}]});
+}
+function mSurvey(c,vis,existing){
+  const S2={step:existing?3:1,member:existing?existing.member:'',tpl:existing?existing.tpl:'',ans:existing?JSON.parse(JSON.stringify(existing.answers)):{}};
+  const readonly=existing&&(existing.status==='done'||isFinal(c)||S.role!=='admin');
+  const mem=()=>c.family.find(m=>m.id===S2.member);
+  openModal({title:existing?'Опрос':'Новый опрос при выезде',wide:true,v:{},
+    render:()=>{
+      const steps=`<div class="steps-mini">${['Член семьи','Сведения и шаблон','Ответы'].map((s,i)=>i+1===S2.step?`<b>${i+1}. ${s}</b>`:`<span>${i+1}. ${s}</span>`).join('<span>→</span>')}</div>`;
+      if(S2.step===1)return `${readonly?'':steps}<p class="muted small">Список членов семьи получен из ЦКС и сохранён в кейсе.</p><div class="list" style="gap:6px">${c.family.map(m=>`<button class="member ${S2.member===m.id?'on':''}" data-action="sPick" data-id="${m.id}"><span class="ava">${initials(m.fio)}</span><span class="grow"><b style="font-weight:500">${esc(m.fio)}</b><br><span class="small muted">${m.rel} · ${ageOf(m.dob)} лет</span></span>${srcTag(m.src)}</button>`).join('')}</div>`;
+      const m=mem();const tp=TEMPLATES.find(t=>t.id===S2.tpl);
+      const info=`<div class="item" style="background:var(--surface-2)"><div class="item-h"><b>${esc(m.fio)}</b>${srcTag(m.src)}</div><div class="subgrid small"><div><span class="lbl">ИИН</span><span class="mono">${m.iin||'—'}</span></div><div><span class="lbl">Дата рождения</span><span class="mono">${m.dob}</span> (${ageOf(m.dob)} лет)</div><div><span class="lbl">Родственная связь</span>${m.rel}${m.src==='ЦКС'?' <span class="hint">— из ЦКС, не редактируется</span>':''}</div><div><span class="lbl">Адрес</span>${esc(c.address)}</div></div></div>`;
+      if(S2.step===2)return `${steps}${info}<div class="field"><label for="s-tpl">Шаблон вопросов <span class="tag">подобран по возрасту</span></label><select class="inp" id="s-tpl" data-stpl="1">${TEMPLATES.map(t=>`<option value="${t.id}" ${S2.tpl===t.id?'selected':''}>${t.name} (${t.ages})</option>`).join('')}</select><span class="hint">Шаблоны хранятся в справочнике «Шаблоны опросов»</span></div>
+        <div class="small muted">${tp.q.length} вопросов, из них обязательных: ${tp.q.filter(q=>q.req).length}</div>`;
+      return `${readonly?'':steps}${info}<h3>${tp.name}</h3>${tp.q.map(q=>qField(q,S2.ans,readonly)).join('')}`;
+    },
+    buttons:readonly?[{label:'Закрыть',act:closeModal}]:[
+      {label:'Назад',act:()=>{if(S2.step>1){S2.step--;M.err='';drawModal();return false}closeModal()}},
+      {label:'Сохранить как незавершённый',cls:'ghost',act:()=>{if(S2.step<3)return 'Сначала выберите члена семьи и шаблон.';save('draft')}},
+      {label:'Далее / завершить опрос',cls:'primary',act:()=>{
+        if(S2.step===1){if(!S2.member)return 'Выберите члена семьи.';S2.tpl=S2.tpl||tplFor(ageOf(mem().dob));S2.step=2;M.err='';drawModal();return false}
+        if(S2.step===2){S2.step=3;M.err='';drawModal();return false}
+        const tp=TEMPLATES.find(t=>t.id===S2.tpl);const miss=tp.q.filter(q=>q.req&&(S2.ans[q.id]==null||S2.ans[q.id]===''||(Array.isArray(S2.ans[q.id])&&!S2.ans[q.id].length)));
+        if(miss.length)return `Заполните обязательные вопросы (${miss.length}): ${miss.map(q=>'«'+q.t+'»').join(', ')}.`;
+        save('done');}}],
+    onPick:id=>{S2.member=id;S2.tpl=tplFor(ageOf(c.family.find(m=>m.id===id).dob));drawModal()},
+    onTpl:v=>{S2.tpl=v;S2.ans={}},
+    onAns:(k,v)=>{S2.ans[k]=v},onAnsMulti:(k,val,on)=>{const a=S2.ans[k]||[];S2.ans[k]=on?[...a,val]:a.filter(x=>x!==val)},
+  });
+  function save(st){
+    const name=memberName(c,S2.member);const tpn=TEMPLATES.find(t=>t.id===S2.tpl).name;
+    if(existing)Object.assign(existing,{answers:S2.ans,status:st,at:nowStr(),by:me()});
+    else vis.surveys.push({id:'s'+uid(),member:S2.member,tpl:S2.tpl,status:st,at:nowStr(),by:me(),answers:S2.ans});
+    log(c,existing?'Заполнение опроса':'Создание опроса',{nw:`${short(name)} — ${tpn}${st==='done'?'':' (не завершён)'}`});
+    closeModal();render();toast(st==='done'?'Опрос сохранён':'Опрос сохранён как незавершённый',st==='done');
+  }
+}
+function qField(q,ans,ro){
+  const v=ans[q.id];const dis=ro?'disabled':'';
+  let ctl='';
+  if(q.type==='yesno')ctl=`<div class="opts">${['Да','Нет'].map(o=>`<label><input type="radio" name="q-${q.id}" data-ans="${q.id}" value="${o}" ${v===o?'checked':''} ${dis}>${o}</label>`).join('')}</div>`;
+  else if(q.type==='single')ctl=`<div class="opts">${q.opts.map(o=>`<label><input type="radio" name="q-${q.id}" data-ans="${q.id}" value="${esc(o)}" ${v===o?'checked':''} ${dis}>${esc(o)}</label>`).join('')}</div>`;
+  else if(q.type==='multi')ctl=`<div class="opts">${q.opts.map(o=>`<label><input type="checkbox" data-ansm="${q.id}" value="${esc(o)}" ${(v||[]).includes(o)?'checked':''} ${dis}>${esc(o)}</label>`).join('')}</div>`;
+  else if(q.type==='text')ctl=`<textarea class="inp" id="q-${q.id}" data-ans="${q.id}" ${dis}>${esc(v||'')}</textarea>`;
+  else ctl=`<input class="inp" style="max-width:220px" id="q-${q.id}" type="${q.type}" data-ans="${q.id}" value="${esc(v||'')}" ${dis}>`;
+  return `<div class="q"><div style="display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap"><span class="qt ${q.req?'req':''}">${q.t}</span><span class="qtype">${TYPE_LBL[q.type]}</span></div>${ctl}</div>`;
+}
+function mMonitoring(c){
+  openModal({title:'Запись мониторинга',wide:true,v:{},
+    render:v=>`${mIn('change','Изменения ситуации семьи',{req:1,ta:1})}
+      <div class="grid2">${mSel('eff','Эффективность мер',['Высокая','Средняя','Низкая'],{req:1})}${mSel('extra','Необходимость дополнительных действий',['Не требуются','Новая мера','Выезд','Новая мера и выезд'],{})}</div>
+      ${mIn('achieved','Достигнутые результаты',{ta:1})}${mIn('rec','Рекомендации',{ta:1})}`,
+    buttons:[{label:'Отмена',act:closeModal},{label:'Сохранить запись',cls:'primary',act:v=>{
+      if(!(v.change||'').trim()||!v.eff)return 'Заполните изменения ситуации и эффективность мер.';
+      c.monitoring.push({at:nowStr(),by:me(),change:v.change,eff:v.eff,achieved:v.achieved||'',extra:v.extra||'',rec:v.rec||''});
+      log(c,'Мониторинг',{nw:'Эффективность мер: '+v.eff,comment:v.extra&&v.extra!=='Не требуются'?'Требуется: '+v.extra:''});
+      toast(v.extra&&v.extra!=='Не требуются'?`Запись сохранена. Рекомендовано: ${v.extra.toLowerCase()} — добавьте в ИПР или назначьте выезд.`:'Запись мониторинга сохранена',true);}}]});
+}
+function mReturn(c){
+  openModal({title:'Возврат кейса в работу',
+    render:v=>`<div class="alert info">${ic('info')}<div>Переход <b>Завершен → В сопровождении</b>. Дата, время и пользователь фиксируются автоматически. После повторного выполнения условий кейс снова завершится автоматически.</div></div>
+      ${mRadios('reason','Причина возврата',RETURN_REASONS,{req:1})}${mIn('comment','Комментарий',{ta:1,req:v.reason==='Другое'})}`,
+    buttons:[{label:'Отмена',act:closeModal},{label:'Вернуть в работу',cls:'primary',act:v=>{
+      if(!v.reason)return 'Выберите причину возврата.';if(v.reason==='Другое'&&!(v.comment||'').trim())return 'При причине «Другое» комментарий обязателен.';
+      c.status='active';c.doneAt='';log(c,'Возврат кейса в работу',{old:'Завершен',nw:'В сопровождении',reason:v.reason,comment:v.comment});toast('Кейс возвращён в работу',true);}}]});
+}
+function mRefuse(c){
+  openModal({title:'Отказ от сопровождения',v:{file:[]},
+    render:v=>`<div class="alert warn">${ic('alert')}<div>Полный отказ семьи переводит кейс в конечный статус <b>«Отказано»</b>. Если получатель отказался только от одной меры — отмените эту меру с причиной «Отказ получателя от конкретной меры».</div></div>
+      ${mSel('reason','Причина отказа',REFUSE_REASONS,{req:1})}${mIn('date','Фактическая дата отказа',{req:1,type:'date'})}
+      ${mFiles('file','Подтверждающий файл',{req:1,btn:'Загрузить файл',extra:`<button class="btn sm ghost" data-action="mDemoFile">Демо-файл</button>`})}${mIn('comment','Комментарий',{ta:1})}
+      <div class="small muted">Будут зафиксированы автоматически: ${me()} · ${esc(orgOf(me()))} · ${nowStr()}</div>`,
+    buttons:[{label:'Отмена',act:closeModal},{label:'Оформить отказ',cls:'danger-solid',act:v=>{
+      const miss=[];if(!v.reason)miss.push('причина');if(!v.date)miss.push('фактическая дата');if(!v.file.length)miss.push('подтверждающий файл');
+      if(miss.length)return 'Для оформления отказа обязательны: '+miss.join(', ')+'.';
+      const old=ST[c.status];c.status='refused';c.refusal={reason:v.reason,date:fromDate(v.date),file:v.file[0],comment:v.comment||'',at:nowStr(),by:me()};
+      c.docs.push({name:v.file[0],from:'Отказ от сопровождения',at:nowStr(),by:me()});
+      log(c,'Отказ от сопровождения',{old,nw:'Отказано',reason:v.reason,comment:(v.comment?v.comment+' · ':'')+'Файл: '+v.file[0]});toast('Отказ от сопровождения оформлен');}}]});
+}
+function mAddMember(c,toDraft){
+  openModal({title:'Добавление члена семьи вручную',
+    render:()=>`<div class="alert info">${ic('info')}<div>Ручной ввод допускается при отсутствии данных в ЦКС. Источник сохраняется как «Ручной ввод».</div></div>${mIn('fio','Ф.И.О.',{req:1})}<div class="grid2">${mIn('iin','ИИН',{mono:1})}${mIn('dob','Дата рождения',{req:1,type:'date'})}</div>${mSel('rel','Родственная связь',RELATIONS,{req:1})}`,
+    buttons:[{label:'Отмена',act:closeModal},{label:'Добавить',cls:'primary',act:v=>{
+      if(!(v.fio||'').trim()||!v.dob||!v.rel)return 'Заполните ФИО, дату рождения и родственную связь.';
+      const m={id:'m'+uid(),fio:v.fio,iin:v.iin||'',dob:fromDate(v.dob),rel:v.rel,src:'Ручной ввод'};
+      if(toDraft){S.nd.family.push(m)}else{c.family.push(m);log(c,'Изменение состава семьи',{nw:'Добавлен вручную: '+v.fio+' ('+v.rel+')'})}
+      toast('Член семьи добавлен',true);}}]});
+}
+
+/* ================= events ================= */
+document.addEventListener('click',e=>{
+  const el=e.target.closest('[data-action]');if(!el)return;
+  const a=el.dataset.action,d=el.dataset;const c=cur();
+  const findM=()=>{const cc=getCase(d.c);return [cc,cc.ipr.items.find(x=>x.id===d.id)]};
+  const findV=()=>{const cc=getCase(d.c);return [cc,cc.visits.find(x=>x.id===d.v)]};
+  switch(a){
+    case 'go':S.view=d.v;if(d.v==='new')S.nd=null;S.ad=null;S.iprDraft=null;render();window.scrollTo({top:0});break;
+    case 'role':S.role=d.v;S.view=d.v==='admin'?'cases':'tasks';S.ad=null;S.iprDraft=null;render();break;
+    case 'reset':DB=seed();S={...S,view:S.role==='admin'?'cases':'tasks',caseId:null,nd:null,ad:null,iprDraft:null,filter:'all',q:''};render();toast('Демо-данные восстановлены');break;
+    case 'filter':S.filter=d.v;render();break;
+    case 'open':closeModal();S.caseId=d.id;S.tab='overview';S.view='case';S.ad=null;S.iprDraft=null;S.mfilter='all';render();window.scrollTo({top:0});break;
+    case 'tab':S.tab=d.v;if(d.v==='ipr'&&c&&!c.ipr&&c.assessment&&canEdit(c)&&!S.iprDraft){}render();break;
+    case 'mfilter':S.mfilter=d.v;render();break;
+    case 'dict':S.dictTab=d.v;render();break;
+    case 'checkIin':runCheck();break;
+    case 'demoIin':S.nd=emptyNd();S.nd.iin=d.v;runCheck();break;
+    case 'ndKind':S.nd.kind=d.v;render();break;
+    case 'ndSign':{const s=S.nd.signs;const i=s.indexOf(d.v);i<0?s.push(d.v):s.splice(i,1);render();break}
+    case 'ndAddMember':mAddMember(null,true);break;
+    case 'ndSubmit':submitNew();break;
+    case 'assign':mAssign(c);break;
+    case 'refuse':mRefuse(c);break;
+    case 'returnCase':mReturn(c);break;
+    case 'cksRefresh':log(c,'Получение данных из ЦКС',{user:'Система',nw:'Повторный запрос: изменений нет'});render();toast('Данные ЦКС актуальны — изменений в составе семьи нет');break;
+    case 'addMember':mAddMember(c);break;
+    case 'adEdit':{const a0=c.assessment||{problems:'',needs:c.needs||'',risks:c.risks||'',directions:[],orgs:[],expected:''};S.ad={caseId:c.id,...JSON.parse(JSON.stringify(a0)),err:''};render();break}
+    case 'adCancel':S.ad=null;render();break;
+    case 'adToggle':{const arr=S.ad[d.k];const i=arr.indexOf(d.v);i<0?arr.push(d.v):arr.splice(i,1);render();break}
+    case 'adSave':{const A=S.ad;if(!A.problems.trim()||!A.needs.trim()||!A.risks.trim()||!A.expected.trim()||!A.directions.length){A.err='Заполните обязательные поля и выберите хотя бы одно направление поддержки.';render();return}
+      const first=!c.assessment;c.assessment={at:nowStr(),by:me(),problems:A.problems,needs:A.needs,risks:A.risks,directions:A.directions,orgs:A.orgs,expected:A.expected};
+      log(c,'Оценка потребностей',{nw:first?'Заполнена':'Изменена'});S.ad=null;render();toast(first?'Оценка сохранена. Следующий шаг — создание ИПР.':'Оценка обновлена',true);break}
+    case 'iprEdit':S.iprErr='';S.iprDraft={caseId:c.id,rows:c.ipr?c.ipr.items.map(x=>({...x,isNew:false})).concat(c.ipr?[]:[]):[blankRow()]};if(c.ipr)S.iprDraft.rows.push(blankRow());S.tab='ipr';render();break;
+    case 'iprAdd':S.iprDraft.rows.push(blankRow());render();break;
+    case 'iprDel':S.iprDraft.rows.splice(+d.i,1);render();break;
+    case 'iprCancel':S.iprDraft=null;S.iprErr='';render();break;
+    case 'iprSave':{const D=S.iprDraft;D.rows=D.rows.filter(r=>!r.isNew||r.recipient||r.problem||r.measure||r.org);if(!D.rows.some(r=>r.isNew)&&c.ipr&&!D.rows.length){}saveIpr(c);break}
+    case 'mDone':{const [cc,x]=findM();mDone(cc,x);break}
+    case 'mCancel':{const [cc,x]=findM();mCancel(cc,x);break}
+    case 'mExec':{const [cc,x]=findM();mExec(cc,x);break}
+    case 'vAdd':mVisitAdd(c);break;
+    case 'vDone':{const [cc,v]=findV();mVisitDone(cc,v);break}
+    case 'sAdd':{const [cc,v]=findV();mSurvey(cc,v);break}
+    case 'sView':{const [cc,v]=findV();mSurvey(cc,v,v.surveys.find(s=>s.id===d.id));break}
+    case 'sPick':M.onPick(d.id);break;
+    case 'monAdd':mMonitoring(c);break;
+    case 'mGeo':M.v.geo='51.16942, 71.44911';drawModal();break;
+    case 'mDemoPhoto':M.v.media=[...M.v.media,`IMG_${5000+Math.floor(Math.random()*999)}.jpg`];drawModal();break;
+    case 'mDemoFile':M.v.file=['Заявление_об_отказе.pdf'];drawModal();break;
+    case 'mclose':closeModal();break;
+    case 'mbtn':{const b=M.buttons[+d.i];const r=b.act(M.v);if(typeof r==='string'){M.err=r;drawModal();$('#modal .mbody').scrollTop=0}else if(r!==false&&M&&b.act!==closeModal){closeModal();render()}break}
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&M)closeModal();
+  if(e.key==='Enter'&&e.target.matches('tr[data-action]'))e.target.click();
+});
+function setPath(o,p,v){const k=p.split('.');let t=o;for(let i=0;i<k.length-1;i++)t=t[k[i]];t[k[k.length-1]]=v}
+document.addEventListener('input',e=>{
+  const el=e.target;
+  if(el.id==='q'){S.q=el.value;$('#cases-wrap').innerHTML=casesTable();return}
+  if(el.dataset.bind){setPath(S,el.dataset.bind,el.value);
+    if(el.id==='nd-iin'){const v=el.value.replace(/\D/g,'').slice(0,12);if(v!==el.value)el.value=v;S.nd.iin=v;S.nd.check=null;
+      const btn=document.querySelector('[data-action=checkIin]');if(btn)btn.disabled=v.length!==12;
+      if(v.length===12)runCheck();}
+    if(el.dataset.rerender){if(/\.org$/.test(el.dataset.bind)){const i=el.dataset.bind.split('.')[2];S.iprDraft.rows[i].executor=''}render()}
+    if(el.id&&el.id.startsWith('nd-')&&S.nd.src){const k=el.id.slice(3);if(S.nd.src[k]==='ЦКС'&&e.type==='input'){S.nd.src[k]='Ручной ввод'}}
+    return}
+  if(M&&el.dataset.mv!==undefined){M.v[el.dataset.mv]=el.value;if(el.dataset.mrer){M.err='';drawModal()}return}
+  if(M&&el.dataset.mcheck){const k=el.dataset.mcheck;const a=M.v[k]||[];M.v[k]=el.checked?[...a,el.value]:a.filter(x=>x!==el.value);return}
+  if(M&&el.dataset.ans){M.onAns(el.dataset.ans,el.value);return}
+  if(M&&el.dataset.ansm){M.onAnsMulti(el.dataset.ansm,el.value,el.checked);return}
+  if(M&&el.dataset.stpl){M.onTpl(el.value);drawModal();return}
+});
+document.addEventListener('change',e=>{
+  const el=e.target;
+  if(el.tagName==='SELECT'||el.type==='radio'||el.type==='checkbox'){
+    if(el.dataset.bind&&el.dataset.rerender){return}
+  }
+  if(el.type==='file'){
+    const names=[...el.files].map(f=>f.name);if(!names.length)return;
+    if(el.dataset.files==='nd'){S.nd.files.push(...names);render()}
+    else if(el.dataset.files==='case'){const c=cur();names.forEach(n=>c.docs.push({name:n,from:'Документы кейса',at:nowStr(),by:me()}));log(c,'Добавление документа',{nw:names.join(', ')});render();toast('Документ загружен',true)}
+    else if(M&&el.dataset.mfiles){const k=el.dataset.mfiles;M.v[k]=[...(M.v[k]||[]),...names];M.err='';drawModal()}
+  }
+});
+render();
+</script>
